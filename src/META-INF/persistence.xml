@@ -5,6 +5,7 @@
     <class>mastercbr.table.Login</class>
     <class>mastercbr.table.Penyakit</class>
     <class>mastercbr.table.Kasus</class>
+    <class>mastercbr.table.Gejala</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/master"/>
       <property name="javax.persistence.jdbc.user" value="master"/>
