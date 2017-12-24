@@ -1,0 +1,165 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package mastercbr.control;
+
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import mastercbr.exceptions.NonexistentEntityException;
+import mastercbr.exceptions.PreexistingEntityException;
+import mastercbr.table.Login;
+
+/**
+ *
+ * @author SEED
+ */
+public class LoginJpaController implements Serializable {
+
+    public LoginJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
+    private EntityManagerFactory emf = null;
+
+    public LoginJpaController() {
+        this.emf = javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU");
+    }
+
+    public EntityManager getEntityManager() {
+        return emf.createEntityManager();
+    }
+
+    public void create(Login login) throws PreexistingEntityException, Exception {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            em.persist(login);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (findLogin(login.getIdUsers()) != null) {
+                throw new PreexistingEntityException("Login " + login + " already exists.", ex);
+            }
+            throw ex;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void edit(Login login) throws NonexistentEntityException, Exception {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            login = em.merge(login);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            String msg = ex.getLocalizedMessage();
+            if (msg == null || msg.length() == 0) {
+                Long id = login.getIdUsers();
+                if (findLogin(id) == null) {
+                    throw new NonexistentEntityException("The login with id " + id + " no longer exists.");
+                }
+            }
+            throw ex;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public void destroy(Long id) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Login login;
+            try {
+                login = em.getReference(Login.class, id);
+                login.getIdUsers();
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The login with id " + id + " no longer exists.", enfe);
+            }
+            em.remove(login);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
+
+    public List<Login> findLoginEntities() {
+        return findLoginEntities(true, -1, -1);
+    }
+
+    public List<Login> findLoginEntities(int maxResults, int firstResult) {
+        return findLoginEntities(false, maxResults, firstResult);
+    }
+
+    private List<Login> findLoginEntities(boolean all, int maxResults, int firstResult) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(Login.class));
+            Query q = em.createQuery(cq);
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Login findLogin(Long id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(Login.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public int getLoginCount() {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            Root<Login> rt = cq.from(Login.class);
+            cq.select(em.getCriteriaBuilder().count(rt));
+            Query q = em.createQuery(cq);
+            return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Login findSingleDataUser(String user) {
+        TypedQuery<Login> createQuery = 
+                     getEntityManager()
+                            .createQuery(
+                                "SELECT l FROM Login l WHERE l.username = :nama"
+                                ,Login.class)
+                .setParameter("nama", user)
+              ;
+        try {
+            return createQuery.getSingleResult();                    
+        } catch (Exception e) {
+//            javax.swing.JOptionPane.showMessageDialog(null, "Salah username dan password");
+            return null;
+        }
+    }
+    
+}
