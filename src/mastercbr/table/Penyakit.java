@@ -5,6 +5,8 @@
  */
 package mastercbr.table;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -32,6 +35,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Penyakit.findByKeterangan", query = "SELECT p FROM Penyakit p WHERE p.keterangan = :keterangan")})
 public class Penyakit implements Serializable {
 
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -41,7 +47,7 @@ public class Penyakit implements Serializable {
     @Column(name = "SOLUSI", length = 255)
     private String solusi;
     @Basic(optional = false)
-    @Column(name = "NAMA_PENYAKIT", nullable = false, length = 255)
+    @Column(name = "NAMA_PENYAKIT", length = 255)
     private String namaPenyakit;
     @Column(name = "KETERANGAN", length = 255)
     private String keterangan;
@@ -65,7 +71,9 @@ public class Penyakit implements Serializable {
     }
 
     public void setIdPenyakit(Long idPenyakit) {
+        Long oldIdPenyakit = this.idPenyakit;
         this.idPenyakit = idPenyakit;
+        changeSupport.firePropertyChange("idPenyakit", oldIdPenyakit, idPenyakit);
     }
 
     public String getSolusi() {
@@ -73,7 +81,9 @@ public class Penyakit implements Serializable {
     }
 
     public void setSolusi(String solusi) {
+        String oldSolusi = this.solusi;
         this.solusi = solusi;
+        changeSupport.firePropertyChange("solusi", oldSolusi, solusi);
     }
 
     public String getNamaPenyakit() {
@@ -81,7 +91,9 @@ public class Penyakit implements Serializable {
     }
 
     public void setNamaPenyakit(String namaPenyakit) {
+        String oldNamaPenyakit = this.namaPenyakit;
         this.namaPenyakit = namaPenyakit;
+        changeSupport.firePropertyChange("namaPenyakit", oldNamaPenyakit, namaPenyakit);
     }
 
     public String getKeterangan() {
@@ -89,7 +101,9 @@ public class Penyakit implements Serializable {
     }
 
     public void setKeterangan(String keterangan) {
+        String oldKeterangan = this.keterangan;
         this.keterangan = keterangan;
+        changeSupport.firePropertyChange("keterangan", oldKeterangan, keterangan);
     }
 
     @Override
@@ -115,6 +129,14 @@ public class Penyakit implements Serializable {
     @Override
     public String toString() {
         return "mastercbr.table.Penyakit[ idPenyakit=" + idPenyakit + " ]";
+    }
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        changeSupport.removePropertyChangeListener(listener);
     }
     
 }

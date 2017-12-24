@@ -31,9 +31,10 @@ public class formMain extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         formPakar1 = new mastercbr.form.formPakar();
+        formPenyakit1 = new mastercbr.form.formPenyakit();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -48,6 +49,7 @@ public class formMain extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("tab1", jPanel1);
         jTabbedPane1.addTab("tab2", formPakar1);
+        jTabbedPane1.addTab("tab3", formPenyakit1);
 
         getContentPane().add(jTabbedPane1);
 
@@ -91,6 +93,7 @@ public class formMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private mastercbr.form.formPakar formPakar1;
+    private mastercbr.form.formPenyakit formPenyakit1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables

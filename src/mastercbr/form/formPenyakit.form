@@ -13,7 +13,7 @@
     </Component>
     <Component class="javax.persistence.Query" name="query">
       <Properties>
-        <Property name="query" type="java.lang.String" value="SELECT l FROM Login l"/>
+        <Property name="query" type="java.lang.String" value="SELECT p FROM Penyakit p"/>
         <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
           <ComponentRef name="entityManager"/>
         </Property>
@@ -31,7 +31,7 @@
         <Property name="observable" type="boolean" value="true"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;mastercbr.table.Login&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;mastercbr.table.Penyakit&gt;"/>
         <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
@@ -47,7 +47,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,29,0,0,1,-32"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,29,0,0,2,88"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
@@ -94,17 +94,17 @@
           </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="list" target="masterTable" targetPath="elements" updateStrategy="0" immediately="true">
-              <Subbinding sourcePath="${idUsers}">
-                <BindingParameter name="NAME" value="Id Users"/>
+              <Subbinding sourcePath="${idPenyakit}">
+                <BindingParameter name="NAME" value="Id Penyakit"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
-              <Subbinding sourcePath="${username}">
-                <BindingParameter name="NAME" value="Username"/>
+              <Subbinding sourcePath="${solusi}">
+                <BindingParameter name="NAME" value="Solusi"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
-              <Subbinding sourcePath="${password}">
-                <BindingParameter name="NAME" value="Password"/>
+              <Subbinding sourcePath="${namaPenyakit}">
+                <BindingParameter name="NAME" value="Nama Penyakit"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${keterangan}">
@@ -185,46 +185,46 @@
         <Property name="rows" type="int" value="0"/>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="idUsersLabel">
+        <Component class="javax.swing.JLabel" name="idPenyakitLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Id Users:"/>
+            <Property name="text" type="java.lang.String" value="Id Penyakit:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="idUsersField">
+        <Component class="javax.swing.JTextField" name="idPenyakitField">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>
           <BindingProperties>
-            <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.idUsers}" target="idUsersField" targetPath="text" updateStrategy="0" immediately="false">
+            <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.idPenyakit}" target="idPenyakitField" targetPath="text" updateStrategy="0" immediately="false">
               <Property name="incompletePathValue" type="java.lang.String" value="null"/>
             </BindingProperty>
-            <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="idUsersField" targetPath="enabled" updateStrategy="1" immediately="false"/>
+            <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="idPenyakitField" targetPath="enabled" updateStrategy="1" immediately="false"/>
           </BindingProperties>
         </Component>
-        <Component class="javax.swing.JLabel" name="usernameLabel">
+        <Component class="javax.swing.JLabel" name="namaPenyakitLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Username:"/>
+            <Property name="text" type="java.lang.String" value="Nama Penyakit:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="usernameField">
+        <Component class="javax.swing.JTextField" name="namaPenyakitField">
           <BindingProperties>
-            <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.username}" target="usernameField" targetPath="text" updateStrategy="0" immediately="false">
+            <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.namaPenyakit}" target="namaPenyakitField" targetPath="text" updateStrategy="0" immediately="false">
               <Property name="incompletePathValue" type="java.lang.String" value="null"/>
             </BindingProperty>
-            <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="usernameField" targetPath="enabled" updateStrategy="1" immediately="false"/>
+            <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="namaPenyakitField" targetPath="enabled" updateStrategy="1" immediately="false"/>
           </BindingProperties>
         </Component>
-        <Component class="javax.swing.JLabel" name="passwordLabel">
+        <Component class="javax.swing.JLabel" name="solusiLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Password:"/>
+            <Property name="text" type="java.lang.String" value="Solusi:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="passwordField">
+        <Component class="javax.swing.JTextField" name="solusiField">
           <BindingProperties>
-            <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.password}" target="passwordField" targetPath="text" updateStrategy="0" immediately="false">
+            <BindingProperty name="text" source="masterTable" sourcePath="${selectedElement.solusi}" target="solusiField" targetPath="text" updateStrategy="0" immediately="false">
               <Property name="incompletePathValue" type="java.lang.String" value="null"/>
             </BindingProperty>
-            <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="passwordField" targetPath="enabled" updateStrategy="1" immediately="false"/>
+            <BindingProperty name="enabled" source="masterTable" sourcePath="${selectedElement != null}" target="solusiField" targetPath="enabled" updateStrategy="1" immediately="false"/>
           </BindingProperties>
         </Component>
         <Component class="javax.swing.JLabel" name="keteranganLabel">

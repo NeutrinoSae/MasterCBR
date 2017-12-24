@@ -17,9 +17,9 @@ import javax.swing.JPanel;
  *
  * @author SEED
  */
-public class formPakar extends JPanel {
+public class formPenyakit extends JPanel {
     
-    public formPakar() {
+    public formPenyakit() {
         initComponents();
         if (!Beans.isDesignTime()) {
             entityManager.getTransaction().begin();
@@ -37,7 +37,7 @@ public class formPakar extends JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU").createEntityManager();
-        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT l FROM Login l");
+        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Penyakit p");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
@@ -47,12 +47,12 @@ public class formPakar extends JPanel {
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        idUsersLabel = new javax.swing.JLabel();
-        idUsersField = new javax.swing.JTextField();
-        usernameLabel = new javax.swing.JLabel();
-        usernameField = new javax.swing.JTextField();
-        passwordLabel = new javax.swing.JLabel();
-        passwordField = new javax.swing.JTextField();
+        idPenyakitLabel = new javax.swing.JLabel();
+        idPenyakitField = new javax.swing.JTextField();
+        namaPenyakitLabel = new javax.swing.JLabel();
+        namaPenyakitField = new javax.swing.JTextField();
+        solusiLabel = new javax.swing.JLabel();
+        solusiField = new javax.swing.JTextField();
         keteranganLabel = new javax.swing.JLabel();
         keteranganField = new javax.swing.JTextField();
 
@@ -64,15 +64,15 @@ public class formPakar extends JPanel {
         masterTable.setAutoCreateRowSorter(true);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idUsers}"));
-        columnBinding.setColumnName("Id Users");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idPenyakit}"));
+        columnBinding.setColumnName("Id Penyakit");
         columnBinding.setColumnClass(Long.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${username}"));
-        columnBinding.setColumnName("Username");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${solusi}"));
+        columnBinding.setColumnName("Solusi");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${password}"));
-        columnBinding.setColumnName("Password");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaPenyakit}"));
+        columnBinding.setColumnName("Nama Penyakit");
         columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
         columnBinding.setColumnName("Keterangan");
@@ -107,40 +107,40 @@ public class formPakar extends JPanel {
 
         jPanel2.setLayout(new java.awt.GridLayout(0, 2));
 
-        idUsersLabel.setText("Id Users:");
-        jPanel2.add(idUsersLabel);
+        idPenyakitLabel.setText("Id Penyakit:");
+        jPanel2.add(idPenyakitLabel);
 
-        idUsersField.setEditable(false);
+        idPenyakitField.setEditable(false);
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idUsers}"), idUsersField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idPenyakit}"), idPenyakitField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setSourceUnreadableValue("null");
         bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), idUsersField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), idPenyakitField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        jPanel2.add(idUsersField);
+        jPanel2.add(idPenyakitField);
 
-        usernameLabel.setText("Username:");
-        jPanel2.add(usernameLabel);
+        namaPenyakitLabel.setText("Nama Penyakit:");
+        jPanel2.add(namaPenyakitLabel);
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.username}"), usernameField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.namaPenyakit}"), namaPenyakitField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setSourceUnreadableValue("null");
         bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), usernameField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), namaPenyakitField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        jPanel2.add(usernameField);
+        jPanel2.add(namaPenyakitField);
 
-        passwordLabel.setText("Password:");
-        jPanel2.add(passwordLabel);
+        solusiLabel.setText("Solusi:");
+        jPanel2.add(solusiLabel);
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.password}"), passwordField, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.solusi}"), solusiField, org.jdesktop.beansbinding.BeanProperty.create("text"));
         binding.setSourceUnreadableValue("null");
         bindingGroup.addBinding(binding);
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), passwordField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), solusiField, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        jPanel2.add(passwordField);
+        jPanel2.add(solusiField);
 
         keteranganLabel.setText("Keterangan:");
         jPanel2.add(keteranganLabel);
@@ -164,16 +164,16 @@ public class formPakar extends JPanel {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             if (evt.getSource() == saveButton) {
-                formPakar.this.saveButtonActionPerformed(evt);
+                formPenyakit.this.saveButtonActionPerformed(evt);
             }
             else if (evt.getSource() == refreshButton) {
-                formPakar.this.refreshButtonActionPerformed(evt);
+                formPenyakit.this.refreshButtonActionPerformed(evt);
             }
             else if (evt.getSource() == newButton) {
-                formPakar.this.newButtonActionPerformed(evt);
+                formPenyakit.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
-                formPakar.this.deleteButtonActionPerformed(evt);
+                formPenyakit.this.deleteButtonActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -193,19 +193,19 @@ public class formPakar extends JPanel {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int[] selected = masterTable.getSelectedRows();
-        List<mastercbr.table.Login> toRemove = new ArrayList<mastercbr.table.Login>(selected.length);
+        List<mastercbr.table.Penyakit> toRemove = new ArrayList<mastercbr.table.Penyakit>(selected.length);
         for (int idx = 0; idx < selected.length; idx++) {
-            mastercbr.table.Login l = list.get(masterTable.convertRowIndexToModel(selected[idx]));
-            toRemove.add(l);
-            entityManager.remove(l);
+            mastercbr.table.Penyakit p = list.get(masterTable.convertRowIndexToModel(selected[idx]));
+            toRemove.add(p);
+            entityManager.remove(p);
         }
         list.removeAll(toRemove);
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        mastercbr.table.Login l = new mastercbr.table.Login();
-        entityManager.persist(l);
-        list.add(l);
+        mastercbr.table.Penyakit p = new mastercbr.table.Penyakit();
+        entityManager.persist(p);
+        list.add(p);
         int row = list.size() - 1;
         masterTable.setRowSelectionInterval(row, row);
         masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
@@ -218,9 +218,9 @@ public class formPakar extends JPanel {
         } catch (RollbackException rex) {
             rex.printStackTrace();
             entityManager.getTransaction().begin();
-            List<mastercbr.table.Login> merged = new ArrayList<mastercbr.table.Login>(list.size());
-            for (mastercbr.table.Login l : list) {
-                merged.add(entityManager.merge(l));
+            List<mastercbr.table.Penyakit> merged = new ArrayList<mastercbr.table.Penyakit>(list.size());
+            for (mastercbr.table.Penyakit p : list) {
+                merged.add(entityManager.merge(p));
             }
             list.clear();
             list.addAll(merged);
@@ -231,23 +231,23 @@ public class formPakar extends JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JTextField idUsersField;
-    private javax.swing.JLabel idUsersLabel;
+    private javax.swing.JTextField idPenyakitField;
+    private javax.swing.JLabel idPenyakitLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField keteranganField;
     private javax.swing.JLabel keteranganLabel;
-    private java.util.List<mastercbr.table.Login> list;
+    private java.util.List<mastercbr.table.Penyakit> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
+    private javax.swing.JTextField namaPenyakitField;
+    private javax.swing.JLabel namaPenyakitLabel;
     private javax.swing.JButton newButton;
-    private javax.swing.JTextField passwordField;
-    private javax.swing.JLabel passwordLabel;
     private javax.persistence.Query query;
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton saveButton;
-    private javax.swing.JTextField usernameField;
-    private javax.swing.JLabel usernameLabel;
+    private javax.swing.JTextField solusiField;
+    private javax.swing.JLabel solusiLabel;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     public static void main(String[] args) {
@@ -264,13 +264,13 @@ public class formPakar extends JPanel {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formPakar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formPenyakit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formPakar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formPenyakit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formPakar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formPenyakit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formPakar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formPenyakit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -278,7 +278,7 @@ public class formPakar extends JPanel {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JFrame frame = new JFrame();
-                frame.setContentPane(new formPakar());
+                frame.setContentPane(new formPenyakit());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);
