@@ -7,6 +7,7 @@
     <class>mastercbr.table.Kasus</class>
     <class>mastercbr.table.Gejala</class>
     <class>mastercbr.table.Pasien</class>
+    <class>mastercbr.table.RekamMedis</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/master"/>
       <property name="javax.persistence.jdbc.user" value="master"/>

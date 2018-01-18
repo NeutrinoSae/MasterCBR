@@ -11,14 +11,18 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -68,6 +72,9 @@ public class Pasien implements Serializable {
     private String keterangan;
     @Column(name = "KELOMPOK_UMUR")
     private Integer kelompokUmur;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pasienIdPasien")
+    private Collection<RekamMedis> rekamMedisCollection;
+
 
     public Pasien() {
     }
@@ -224,6 +231,14 @@ public class Pasien implements Serializable {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
+    }
+
+    public Collection<RekamMedis> getRekamMedisCollection() {
+        return rekamMedisCollection;
+    }
+
+    public void setRekamMedisCollection(Collection<RekamMedis> rekamMedisCollection) {
+        this.rekamMedisCollection = rekamMedisCollection;
     }
     
 }
