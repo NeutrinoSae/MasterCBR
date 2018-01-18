@@ -53,6 +53,10 @@ public class RekamMedis implements Serializable {
     @JoinColumn(name = "PASIEN_ID_PASIEN", referencedColumnName = "ID_PASIEN")
     @ManyToOne
     private Pasien pasienIdPasien;
+    
+    @JoinColumn(name = "KASUS_ID_KASUS", referencedColumnName = "ID_KASUS")
+    @ManyToOne
+    private Kasus kasusIdKasus;
 
 
     public RekamMedis() {
@@ -125,6 +129,16 @@ public class RekamMedis implements Serializable {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
+    }
+
+    public Kasus getKasusIdKasus() {
+        return kasusIdKasus;
+    }
+
+    public void setKasusIdKasus(Kasus kasusIdKasus) {
+        Kasus oldKasusIdKasus = this.kasusIdKasus;
+        this.kasusIdKasus = kasusIdKasus;
+        changeSupport.firePropertyChange("kasusIdKasus", oldKasusIdKasus, kasusIdKasus);
     }
     
 }

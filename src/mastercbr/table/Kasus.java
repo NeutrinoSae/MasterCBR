@@ -8,13 +8,17 @@ package mastercbr.table;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,6 +43,8 @@ public class Kasus implements Serializable {
     private Long idKasus;
     
     private transient final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kasusIdKasus")
+    private Collection<RekamMedis> rekamMedisCollection;
 
     /**
      * Add PropertyChangeListener.
@@ -70,7 +76,9 @@ public class Kasus implements Serializable {
     }
 
     public void setIdKasus(Long idKasus) {
+        Long oldIdKasus = this.idKasus;
         this.idKasus = idKasus;
+//        changeSupport.firePropertyChange("idKasus", oldIdKasus, idKasus);
     }
 
     @Override
@@ -96,6 +104,14 @@ public class Kasus implements Serializable {
     @Override
     public String toString() {
         return "mastercbr.table.Kasus[ idKasus=" + idKasus + " ]";
+    }
+
+    public Collection<RekamMedis> getRekamMedisCollection() {
+        return rekamMedisCollection;
+    }
+
+    public void setRekamMedisCollection(Collection<RekamMedis> rekamMedisCollection) {
+        this.rekamMedisCollection = rekamMedisCollection;
     }
     
 }

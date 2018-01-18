@@ -49,6 +49,31 @@
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>
+    <Component class="javax.persistence.Query" name="query1">
+      <Properties>
+        <Property name="query" type="java.lang.String" value="SELECT k FROM Kasus k"/>
+        <Property name="entityManager" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$EMProperty$EntityManagerEditor">
+          <ComponentRef name="entityManager"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
+      </AuxValues>
+    </Component>
+    <Component class="java.util.List" name="list1">
+      <Properties>
+        <Property name="query" type="java.lang.Object" editor="org.netbeans.modules.form.j2ee.J2EEPropertyModifier$QueryBeanProperty$QueryEditor">
+          <ComponentRef name="query1"/>
+        </Property>
+        <Property name="observable" type="boolean" value="true"/>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;mastercbr.table.Kasus&gt;"/>
+        <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
+      </AuxValues>
+    </Component>
   </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -60,7 +85,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,90,0,0,1,-66"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-116,0,0,1,-66"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
@@ -76,7 +101,8 @@
       <SubComponents>
         <Component class="javax.swing.JTable" name="masterTable">
           <Properties>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" preCode="masterTable.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(this.jComboBox2));">
+            <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" preCode="masterTable.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(this.jComboBox2));">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
@@ -125,6 +151,7 @@
                 </Column>
               </TableColumnModel>
             </Property>
+            <Property name="rowHeight" type="int" value="30"/>
             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
@@ -144,9 +171,9 @@
                 <BindingParameter name="NAME" value="Alamat"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
-              <Subbinding sourcePath="${jenisKelamin}">
+              <Subbinding sourcePath="${jenisKelaminString}">
                 <BindingParameter name="NAME" value="Jenis Kelamin"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Boolean.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
               </Subbinding>
               <Subbinding sourcePath="${tempatLahir}">
                 <BindingParameter name="NAME" value="Tempat Lahir"/>
@@ -220,23 +247,53 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Component class="javax.swing.JTable" name="detailTable">
+          <Properties>
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+              <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+              </TableColumnModel>
+            </Property>
+            <Property name="rowHeight" type="int" value="30"/>
+            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+            </Property>
+          </Properties>
           <BindingProperties>
-            <BindingProperty name="elements" source="masterTable" sourcePath="${selectedElement.rekamMedisCollection}" target="detailTable" targetPath="elements" updateStrategy="0" immediately="false">
+            <BindingProperty name="elements" source="masterTable" sourcePath="${selectedElement.rekamMedisCollection}" target="detailTable" targetPath="elements" updateStrategy="0" immediately="true">
               <Property name="incompletePathValue" type="java.util.List" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                 <Connection code="java.util.Collections.emptyList()" type="code"/>
               </Property>
               <Subbinding sourcePath="${rmId}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN" value="0"/>
+                <BindingParameter name="NAME" value="Rm Id"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${tanggalKonsultasi}">
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN" value="1"/>
+                <BindingParameter name="NAME" value="Tanggal Konsultasi"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.util.Date.class"/>
+              </Subbinding>
+              <Subbinding sourcePath="${kasusIdKasus}">
+                <BindingParameter name="NAME" value="Kasus"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="mastercbr.table.Kasus.class"/>
               </Subbinding>
             </BindingProperty>
           </BindingProperties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());&#xa;masterTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());&#xa;detailTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());&#xa;masterTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());&#xa;detailTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());&#xa;detailTable.setDefaultEditor(Kasus.class, new DefaultCellEditor(this.jComboBox1));"/>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
           </AuxValues>
@@ -299,6 +356,14 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
+          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="jComboBox1">
+          <BindingProperties>
+            <BindingProperty name="elements" source="list1" target="jComboBox1" targetPath="elements" updateStrategy="0" immediately="false"/>
+          </BindingProperties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>
