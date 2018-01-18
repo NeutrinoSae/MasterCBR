@@ -51,8 +51,6 @@ public class Penyakit implements Serializable {
     private String namaPenyakit;
     @Column(name = "KETERANGAN", length = 255)
     private String keterangan;
-    @OneToOne(mappedBy = "penyakit")
-    private Kasus kasus;
 
     public Penyakit() {
     }

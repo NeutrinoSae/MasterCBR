@@ -38,31 +38,6 @@ public class Kasus implements Serializable {
     @GeneratedValue
     private Long idKasus;
     
-    @OneToOne
-    private Penyakit penyakit;
-
-    public static final String PROP_PENYAKIT = "penyakit";
-
-    /**
-     * Get the value of penyakit
-     *
-     * @return the value of penyakit
-     */
-    public Penyakit getPenyakit() {
-        return penyakit;
-    }
-
-    /**
-     * Set the value of penyakit
-     *
-     * @param penyakit new value of penyakit
-     */
-    public void setPenyakit(Penyakit penyakit) {
-        Penyakit oldPenyakit = this.penyakit;
-        this.penyakit = penyakit;
-        propertyChangeSupport.firePropertyChange(PROP_PENYAKIT, oldPenyakit, penyakit);
-    }
-
     private transient final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
     /**
