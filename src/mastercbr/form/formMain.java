@@ -30,6 +30,7 @@ public class formMain extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        formPasien1 = new mastercbr.form.formPasien();
         formPakar1 = new mastercbr.form.formPakar();
         formPenyakit1 = new mastercbr.form.formPenyakit();
         formGejala1 = new mastercbr.form.formGejala();
@@ -45,10 +46,11 @@ public class formMain extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 237, Short.MAX_VALUE)
+            .addGap(0, 597, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Home", jPanel1);
+        jTabbedPane1.addTab("Pasien", formPasien1);
         jTabbedPane1.addTab("Login", formPakar1);
         jTabbedPane1.addTab("Penyakit", formPenyakit1);
         jTabbedPane1.addTab("Gejala", formGejala1);
@@ -96,6 +98,7 @@ public class formMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private mastercbr.form.formGejala formGejala1;
     private mastercbr.form.formPakar formPakar1;
+    private mastercbr.form.formPasien formPasien1;
     private mastercbr.form.formPenyakit formPenyakit1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
