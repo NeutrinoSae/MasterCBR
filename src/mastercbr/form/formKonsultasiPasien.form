@@ -74,6 +74,14 @@
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
       </AuxValues>
     </Component>
+    <Component class="javax.swing.JComboBox" name="jComboBox1">
+      <BindingProperties>
+        <BindingProperty name="elements" source="list1" target="jComboBox1" targetPath="elements" updateStrategy="0" immediately="false"/>
+      </BindingProperties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
   </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -293,7 +301,7 @@
             </BindingProperty>
           </BindingProperties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());&#xa;masterTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());&#xa;detailTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());&#xa;detailTable.setDefaultEditor(Kasus.class, new DefaultCellEditor(this.jComboBox1));"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());&#xa;masterTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());&#xa;detailTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());&#xa;detailTable.setDefaultEditor(Kasus.class, new DefaultCellEditor(this.jComboBox1));&#xa;detailTable.putClientProperty(&quot;terminateEditOnFocusLost&quot;, Boolean.TRUE);&#xa;masterTable.putClientProperty(&quot;terminateEditOnFocusLost&quot;, Boolean.TRUE);"/>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
           </AuxValues>
@@ -356,14 +364,6 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
-          <BindingProperties>
-            <BindingProperty name="elements" source="list1" target="jComboBox1" targetPath="elements" updateStrategy="0" immediately="false"/>
-          </BindingProperties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
       </SubComponents>

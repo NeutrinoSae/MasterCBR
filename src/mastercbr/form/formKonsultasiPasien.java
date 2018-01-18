@@ -47,6 +47,7 @@ public class formKonsultasiPasien extends JPanel {
         jComboBox2 = new javax.swing.JComboBox<>();
         query1 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT k FROM Kasus k");
         list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query1.getResultList());
+        jComboBox1 = new javax.swing.JComboBox<>();
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -59,11 +60,13 @@ public class formKonsultasiPasien extends JPanel {
         refreshButton = new javax.swing.JButton();
         deleteDetailButton = new javax.swing.JButton();
         newDetailButton = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
 
         FormListener formListener = new FormListener();
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LAKI-LAKI", "PEREMPUAN" }));
+
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list1, jComboBox1);
+        bindingGroup.addBinding(jComboBoxBinding);
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -126,6 +129,8 @@ public class formKonsultasiPasien extends JPanel {
         masterTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());
         detailTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());
         detailTable.setDefaultEditor(Kasus.class, new DefaultCellEditor(this.jComboBox1));
+        detailTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+        masterTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         detailTable.setRowHeight(30);
 
         org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${selectedElement.rekamMedisCollection}");
@@ -170,11 +175,6 @@ public class formKonsultasiPasien extends JPanel {
 
         newDetailButton.addActionListener(formListener);
         jPanel2.add(newDetailButton);
-
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list1, jComboBox1);
-        bindingGroup.addBinding(jComboBoxBinding);
-
-        jPanel2.add(jComboBox1);
 
         add(jPanel2);
 
@@ -251,6 +251,8 @@ public class formKonsultasiPasien extends JPanel {
     
     @SuppressWarnings("unchecked")
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
+        detailTable.clearSelection();
+        masterTable.clearSelection();
         entityManager.getTransaction().rollback();
         entityManager.getTransaction().begin();
         java.util.Collection data = query.getResultList();
@@ -263,6 +265,8 @@ public class formKonsultasiPasien extends JPanel {
         });
         list.clear();
         list.addAll(data);
+        list1.clear();
+        list1.addAll(data1);
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
