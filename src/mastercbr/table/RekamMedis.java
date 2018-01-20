@@ -19,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -55,14 +56,41 @@ public class RekamMedis implements Serializable {
     @ManyToOne
     private Pasien pasienIdPasien;
     
-
+    @OneToOne(mappedBy = "rekamMedis", cascade = {CascadeType.ALL})
+    private Kasus kasus;
+//    private Kasus kasus;
 
 
     public RekamMedis() {
+        this.kasus = new Kasus();
         this.tanggalKonsultasi = new Date();
     }
 
+    public static final String PROP_KASUS = "kasus";
+
+    /**
+     * Get the value of kasus
+     *
+     * @return the value of kasus
+     */
+    public Kasus getKasus() {
+        return kasus;
+    }
+
+    /**
+     * Set the value of kasus
+     *
+     * @param kasus new value of kasus
+     */
+    public void setKasus(Kasus kasus) {
+        Kasus oldKasus = this.kasus;
+        this.kasus = kasus;
+        changeSupport.firePropertyChange(PROP_KASUS, oldKasus, kasus);
+    }
+
+
     public RekamMedis(Long rmId) {
+        this.kasus = new Kasus();
         this.tanggalKonsultasi = new Date();
         this.rmId = rmId;
     }

@@ -5,10 +5,9 @@
  */
 package mastercbr.table;
 
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -18,9 +17,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -34,6 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Kasus.findAll", query = "SELECT k FROM Kasus k")
     , @NamedQuery(name = "Kasus.findByIdKasus", query = "SELECT k FROM Kasus k WHERE k.idKasus = :idKasus")})
 public class Kasus implements Serializable {
+    @Transient
+    private PropertyChangeSupport changeSupport = new PropertyChangeSupport(this);
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,6 +42,53 @@ public class Kasus implements Serializable {
     @Column(name = "ID_KASUS", nullable = false)
     @GeneratedValue
     private Long idKasus;
+    @OneToOne(cascade = {CascadeType.ALL})
+    private RekamMedis rekamMedis;
+    
+//    @OneToMany
+    private List<Long> gejalaList = new LinkedList<>();
+
+    public static final String PROP_GEJALALIST = "gejalaList";
+
+    /**
+     * Get the value of gejalaList
+     *
+     * @return the value of gejalaList
+     */
+    public List<Long> getGejalaList() {
+        return gejalaList;
+    }
+
+    /**
+     * Set the value of gejalaList
+     *
+     * @param gejalaList new value of gejalaList
+     */
+    public void setGejalaList(List<Long> gejalaList) {
+        List<Long> oldGejalaList = this.gejalaList;
+        this.gejalaList = gejalaList;
+        changeSupport.firePropertyChange(PROP_GEJALALIST, oldGejalaList, gejalaList);
+    }
+
+
+    /**
+     * Add PropertyChangeListener.
+     *
+     * @param listener
+     */
+
+
+
+
+//    private List<Gejala> gejalas;
+
+    public RekamMedis getRekamMedis() {
+        return rekamMedis;
+    }
+
+    public void setRekamMedis(RekamMedis rekamMedis) {
+        this.rekamMedis = rekamMedis;
+    }
     
     public Kasus() {
     }

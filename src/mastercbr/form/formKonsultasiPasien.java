@@ -45,24 +45,46 @@ public class formKonsultasiPasien extends JPanel {
         query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Pasien p");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
         jComboBox2 = new javax.swing.JComboBox<>();
-        masterScrollPane = new javax.swing.JScrollPane();
-        masterTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        detailScrollPane = new javax.swing.JScrollPane();
-        detailTable = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
         saveButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
-        deleteDetailButton = new javax.swing.JButton();
+        masterScrollPane = new javax.swing.JScrollPane();
+        masterTable = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
         newDetailButton = new javax.swing.JButton();
+        deleteDetailButton = new javax.swing.JButton();
+        detailScrollPane = new javax.swing.JScrollPane();
+        detailTable = new javax.swing.JTable();
 
         FormListener formListener = new FormListener();
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LAKI-LAKI", "PEREMPUAN" }));
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
+
+        newButton.setText("PASIEN BARU");
+        newButton.addActionListener(formListener);
+        jPanel1.add(newButton);
+
+        deleteButton.setText("HAPUS PASIEN");
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        deleteButton.addActionListener(formListener);
+        jPanel1.add(deleteButton);
+
+        saveButton.setText("SIMPAN");
+        saveButton.addActionListener(formListener);
+        jPanel1.add(saveButton);
+
+        refreshButton.setText("REFRESH");
+        refreshButton.addActionListener(formListener);
+        jPanel1.add(refreshButton);
+
+        add(jPanel1);
 
         masterTable.setAutoCreateRowSorter(true);
         masterTable.setRowHeight(30);
@@ -105,19 +127,23 @@ public class formKonsultasiPasien extends JPanel {
 
         add(masterScrollPane);
 
-        newButton.setText("New");
-        newButton.addActionListener(formListener);
-        jPanel1.add(newButton);
+        newDetailButton.setText("REKAM MEDIS BARU");
 
-        deleteButton.setText("Delete");
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), newDetailButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        deleteButton.addActionListener(formListener);
-        jPanel1.add(deleteButton);
+        newDetailButton.addActionListener(formListener);
+        jPanel2.add(newDetailButton);
 
-        add(jPanel1);
+        deleteDetailButton.setText("HAPUS REKAM MEDIS");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, detailTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteDetailButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        deleteDetailButton.addActionListener(formListener);
+        jPanel2.add(deleteDetailButton);
+
+        add(jPanel2);
 
         masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());
         masterTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());
@@ -136,38 +162,16 @@ public class formKonsultasiPasien extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tanggalKonsultasi}"));
         columnBinding.setColumnName("Tanggal Konsultasi");
         columnBinding.setColumnClass(java.util.Date.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${kasus}"));
+        columnBinding.setColumnName("Kasus");
+        columnBinding.setColumnClass(mastercbr.table.Kasus.class);
+        columnBinding.setEditable(false);
         jTableBinding.setSourceUnreadableValue(java.util.Collections.emptyList());
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         detailScrollPane.setViewportView(detailTable);
 
         add(detailScrollPane);
-
-        saveButton.setText("Save");
-        saveButton.addActionListener(formListener);
-        jPanel2.add(saveButton);
-
-        refreshButton.setText("Refresh");
-        refreshButton.addActionListener(formListener);
-        jPanel2.add(refreshButton);
-
-        deleteDetailButton.setText("Delete");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, detailTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteDetailButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        deleteDetailButton.addActionListener(formListener);
-        jPanel2.add(deleteDetailButton);
-
-        newDetailButton.setText("New");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), newDetailButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        newDetailButton.addActionListener(formListener);
-        jPanel2.add(newDetailButton);
-
-        add(jPanel2);
 
         bindingGroup.bind();
     }
@@ -230,6 +234,8 @@ public class formKonsultasiPasien extends JPanel {
             p.setRekamMedisCollection((List) rs);
         }
         mastercbr.table.RekamMedis r = new mastercbr.table.RekamMedis();
+        Kasus kasus = r.getKasus();
+        kasus.setRekamMedis(r);
         entityManager.persist(r);
         r.setPasienIdPasien(p);
         rs.add(r);

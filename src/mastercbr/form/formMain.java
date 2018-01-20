@@ -30,11 +30,11 @@ public class formMain extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        formPasien1 = new mastercbr.form.formPasien();
         formKonsultasiPasien1 = new mastercbr.form.formKonsultasiPasien();
-        formPakar1 = new mastercbr.form.formPakar();
-        formPenyakit1 = new mastercbr.form.formPenyakit();
+        formKasus1 = new mastercbr.form.formKasus();
         formGejala1 = new mastercbr.form.formGejala();
+        formPenyakit1 = new mastercbr.form.formPenyakit();
+        formPakar1 = new mastercbr.form.formPakar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
@@ -51,11 +51,11 @@ public class formMain extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Home", jPanel1);
-        jTabbedPane1.addTab("Pasien", formPasien1);
         jTabbedPane1.addTab("Konsultasi Pasien", formKonsultasiPasien1);
-        jTabbedPane1.addTab("Login", formPakar1);
-        jTabbedPane1.addTab("Penyakit", formPenyakit1);
+        jTabbedPane1.addTab("Kasus", formKasus1);
         jTabbedPane1.addTab("Gejala", formGejala1);
+        jTabbedPane1.addTab("Penyakit", formPenyakit1);
+        jTabbedPane1.addTab("Login", formPakar1);
 
         getContentPane().add(jTabbedPane1);
 
@@ -99,9 +99,9 @@ public class formMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private mastercbr.form.formGejala formGejala1;
+    private mastercbr.form.formKasus formKasus1;
     private mastercbr.form.formKonsultasiPasien formKonsultasiPasien1;
     private mastercbr.form.formPakar formPakar1;
-    private mastercbr.form.formPasien formPasien1;
     private mastercbr.form.formPenyakit formPenyakit1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;

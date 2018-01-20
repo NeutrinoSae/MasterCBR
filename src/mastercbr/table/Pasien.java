@@ -77,6 +77,7 @@ public class Pasien implements Serializable {
 
 
     public Pasien() {
+        this.nama = "Pasien";
     }
 
     public Pasien(Long idPasien) {

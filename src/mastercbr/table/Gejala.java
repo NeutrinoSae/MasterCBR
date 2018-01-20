@@ -45,7 +45,6 @@ public class Gejala implements Serializable {
     private Long idGejala;
     @Column(name = "NAMA_GEJALA", length = 255)
     private String namaGejala;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "VALUE", precision = 4)
     private Double value;
     @Column(name = "KETERANGAN", length = 255)
@@ -53,6 +52,31 @@ public class Gejala implements Serializable {
 
     public Gejala() {
         this.value = 1d;
+        this.namaGejala = "Gejala "+idGejala;
+    }
+    @Transient
+    private boolean pilihan;
+
+    public static final String PROP_PILIHAN = "pilihan";
+
+    /**
+     * Get the value of pilihan
+     *
+     * @return the value of pilihan
+     */
+    public boolean isPilihan() {
+        return pilihan;
+    }
+
+    /**
+     * Set the value of pilihan
+     *
+     * @param pilihan new value of pilihan
+     */
+    public void setPilihan(boolean pilihan) {
+        boolean oldPilihan = this.pilihan;
+        this.pilihan = pilihan;
+        changeSupport.firePropertyChange(PROP_PILIHAN, oldPilihan, pilihan);
     }
 
     public Gejala(Long idGejala) {
