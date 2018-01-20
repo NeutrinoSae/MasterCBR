@@ -32,7 +32,6 @@ public class formMain extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         formPasien1 = new mastercbr.form.formPasien();
         formKonsultasiPasien1 = new mastercbr.form.formKonsultasiPasien();
-        formIdentifikasiKasus1 = new mastercbr.form.formIdentifikasiKasus();
         formPakar1 = new mastercbr.form.formPakar();
         formPenyakit1 = new mastercbr.form.formPenyakit();
         formGejala1 = new mastercbr.form.formGejala();
@@ -54,7 +53,6 @@ public class formMain extends javax.swing.JFrame {
         jTabbedPane1.addTab("Home", jPanel1);
         jTabbedPane1.addTab("Pasien", formPasien1);
         jTabbedPane1.addTab("Konsultasi Pasien", formKonsultasiPasien1);
-        jTabbedPane1.addTab("Identifikasi Kasus", formIdentifikasiKasus1);
         jTabbedPane1.addTab("Login", formPakar1);
         jTabbedPane1.addTab("Penyakit", formPenyakit1);
         jTabbedPane1.addTab("Gejala", formGejala1);
@@ -101,7 +99,6 @@ public class formMain extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private mastercbr.form.formGejala formGejala1;
-    private mastercbr.form.formIdentifikasiKasus formIdentifikasiKasus1;
     private mastercbr.form.formKonsultasiPasien formKonsultasiPasien1;
     private mastercbr.form.formPakar formPakar1;
     private mastercbr.form.formPasien formPasien1;

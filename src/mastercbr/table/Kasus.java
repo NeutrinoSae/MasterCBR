@@ -42,28 +42,6 @@ public class Kasus implements Serializable {
     @GeneratedValue
     private Long idKasus;
     
-    private transient final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kasusIdKasus")
-    private Collection<RekamMedis> rekamMedisCollection;
-
-    /**
-     * Add PropertyChangeListener.
-     *
-     * @param listener
-     */
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        propertyChangeSupport.addPropertyChangeListener(listener);
-    }
-
-    /**
-     * Remove PropertyChangeListener.
-     *
-     * @param listener
-     */
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        propertyChangeSupport.removePropertyChangeListener(listener);
-    }
-
     public Kasus() {
     }
 
@@ -106,12 +84,5 @@ public class Kasus implements Serializable {
         return "mastercbr.table.Kasus[ idKasus=" + idKasus + " ]";
     }
 
-    public Collection<RekamMedis> getRekamMedisCollection() {
-        return rekamMedisCollection;
-    }
-
-    public void setRekamMedisCollection(Collection<RekamMedis> rekamMedisCollection) {
-        this.rekamMedisCollection = rekamMedisCollection;
-    }
     
 }

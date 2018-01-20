@@ -45,9 +45,6 @@ public class formKonsultasiPasien extends JPanel {
         query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Pasien p");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
         jComboBox2 = new javax.swing.JComboBox<>();
-        query1 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT k FROM Kasus k");
-        list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query1.getResultList());
-        jComboBox1 = new javax.swing.JComboBox<>();
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
@@ -64,9 +61,6 @@ public class formKonsultasiPasien extends JPanel {
         FormListener formListener = new FormListener();
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LAKI-LAKI", "PEREMPUAN" }));
-
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list1, jComboBox1);
-        bindingGroup.addBinding(jComboBoxBinding);
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -128,7 +122,7 @@ public class formKonsultasiPasien extends JPanel {
         masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());
         masterTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());
         detailTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());
-        detailTable.setDefaultEditor(Kasus.class, new DefaultCellEditor(this.jComboBox1));
+        //detailTable.setDefaultEditor(Kasus.class, new DefaultCellEditor(this.jComboBox1));
         detailTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         masterTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
         detailTable.setRowHeight(30);
@@ -142,9 +136,6 @@ public class formKonsultasiPasien extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tanggalKonsultasi}"));
         columnBinding.setColumnName("Tanggal Konsultasi");
         columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${kasusIdKasus}"));
-        columnBinding.setColumnName("Kasus");
-        columnBinding.setColumnClass(mastercbr.table.Kasus.class);
         jTableBinding.setSourceUnreadableValue(java.util.Collections.emptyList());
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -259,14 +250,8 @@ public class formKonsultasiPasien extends JPanel {
         data.forEach((entity) -> {
             entityManager.refresh(entity);
         });
-        java.util.Collection data1 = query1.getResultList();
-        data1.forEach((entity) -> {
-            entityManager.refresh(entity);
-        });
         list.clear();
         list.addAll(data);
-        list1.clear();
-        list1.addAll(data1);
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
@@ -312,18 +297,15 @@ public class formKonsultasiPasien extends JPanel {
     private javax.swing.JScrollPane detailScrollPane;
     private javax.swing.JTable detailTable;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private java.util.List<mastercbr.table.Pasien> list;
-    private java.util.List<mastercbr.table.Kasus> list1;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
     private javax.swing.JButton newButton;
     private javax.swing.JButton newDetailButton;
     private javax.persistence.Query query;
-    private javax.persistence.Query query1;
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton saveButton;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;

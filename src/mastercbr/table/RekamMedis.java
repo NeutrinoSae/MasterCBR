@@ -10,6 +10,7 @@ import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -54,9 +55,7 @@ public class RekamMedis implements Serializable {
     @ManyToOne
     private Pasien pasienIdPasien;
     
-    @JoinColumn(name = "KASUS_ID_KASUS", referencedColumnName = "ID_KASUS")
-    @ManyToOne
-    private Kasus kasusIdKasus;
+
 
 
     public RekamMedis() {
@@ -131,14 +130,6 @@ public class RekamMedis implements Serializable {
         changeSupport.removePropertyChangeListener(listener);
     }
 
-    public Kasus getKasusIdKasus() {
-        return kasusIdKasus;
-    }
 
-    public void setKasusIdKasus(Kasus kasusIdKasus) {
-        Kasus oldKasusIdKasus = this.kasusIdKasus;
-        this.kasusIdKasus = kasusIdKasus;
-        changeSupport.firePropertyChange("kasusIdKasus", oldKasusIdKasus, kasusIdKasus);
-    }
     
 }
