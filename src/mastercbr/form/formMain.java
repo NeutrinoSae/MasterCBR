@@ -33,7 +33,7 @@ public class formMain extends javax.swing.JFrame {
         formKonsultasiPasien1 = new mastercbr.form.formKonsultasiPasien();
         formKasus1 = new mastercbr.form.formKasus();
         formGejala1 = new mastercbr.form.formGejala();
-        formPenyakit1 = new mastercbr.form.formPenyakit();
+        formDiagnosaKasus1 = new mastercbr.form.formDiagnosaKasus();
         formPakar1 = new mastercbr.form.formPakar();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,14 +47,14 @@ public class formMain extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 942, Short.MAX_VALUE)
+            .addGap(0, 549, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Home", jPanel1);
         jTabbedPane1.addTab("Konsultasi Pasien", formKonsultasiPasien1);
         jTabbedPane1.addTab("Kasus", formKasus1);
         jTabbedPane1.addTab("Gejala", formGejala1);
-        jTabbedPane1.addTab("Penyakit", formPenyakit1);
+        jTabbedPane1.addTab("Penyakit", formDiagnosaKasus1);
         jTabbedPane1.addTab("Login", formPakar1);
 
         getContentPane().add(jTabbedPane1);
@@ -98,11 +98,11 @@ public class formMain extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private mastercbr.form.formDiagnosaKasus formDiagnosaKasus1;
     private mastercbr.form.formGejala formGejala1;
     private mastercbr.form.formKasus formKasus1;
     private mastercbr.form.formKonsultasiPasien formKonsultasiPasien1;
     private mastercbr.form.formPakar formPakar1;
-    private mastercbr.form.formPenyakit formPenyakit1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables

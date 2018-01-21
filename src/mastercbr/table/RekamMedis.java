@@ -137,7 +137,7 @@ public class RekamMedis implements Serializable {
 
     @Override
     public String toString() {
-        return "mastercbr.table.RekamMedis[ rmId=" + rmId + " ]";
+        return "RekamMedis[" + rmId + " ]";
     }
 
     public Pasien getPasienIdPasien() {

@@ -106,7 +106,7 @@ public class formGejala extends JPanel {
 
         jPanel2.add(keteranganField);
 
-        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
+        setLayout(new java.awt.BorderLayout());
 
         newButton.setText("GEJALA BARU");
         newButton.addActionListener(formListener);
@@ -128,7 +128,7 @@ public class formGejala extends JPanel {
         refreshButton.addActionListener(formListener);
         jPanel1.add(refreshButton);
 
-        add(jPanel1);
+        add(jPanel1, java.awt.BorderLayout.NORTH);
 
         masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());
 
@@ -140,9 +140,6 @@ public class formGejala extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaGejala}"));
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
-        columnBinding.setColumnName("Value");
-        columnBinding.setColumnClass(Double.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
         columnBinding.setColumnName("Keterangan");
         columnBinding.setColumnClass(String.class);
@@ -150,7 +147,7 @@ public class formGejala extends JPanel {
         jTableBinding.bind();
         masterScrollPane.setViewportView(masterTable);
 
-        add(masterScrollPane);
+        add(masterScrollPane, java.awt.BorderLayout.CENTER);
 
         bindingGroup.bind();
     }
@@ -160,17 +157,17 @@ public class formGejala extends JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == saveButton) {
-                formGejala.this.saveButtonActionPerformed(evt);
-            }
-            else if (evt.getSource() == refreshButton) {
-                formGejala.this.refreshButtonActionPerformed(evt);
-            }
-            else if (evt.getSource() == newButton) {
+            if (evt.getSource() == newButton) {
                 formGejala.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
                 formGejala.this.deleteButtonActionPerformed(evt);
+            }
+            else if (evt.getSource() == saveButton) {
+                formGejala.this.saveButtonActionPerformed(evt);
+            }
+            else if (evt.getSource() == refreshButton) {
+                formGejala.this.refreshButtonActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents

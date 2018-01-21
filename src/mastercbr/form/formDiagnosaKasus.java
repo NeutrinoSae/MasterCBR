@@ -13,18 +13,16 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.RollbackException;
-import javax.swing.DefaultCellEditor;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import mastercbr.table.Kasus;
 
 /**
  *
  * @author SEED
  */
-public class formKonsultasiPasien extends JPanel {
+public class formDiagnosaKasus extends JPanel {
     
-    public formKonsultasiPasien() {
+    public formDiagnosaKasus() {
         initComponents();
         if (!Beans.isDesignTime()) {
             entityManager.getTransaction().begin();
@@ -42,9 +40,10 @@ public class formKonsultasiPasien extends JPanel {
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU").createEntityManager();
-        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Pasien p");
+        query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Penyakit p");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
-        jComboBox2 = new javax.swing.JComboBox<>();
+        newDetailButton = new javax.swing.JButton();
+        deleteDetailButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
@@ -52,25 +51,34 @@ public class formKonsultasiPasien extends JPanel {
         refreshButton = new javax.swing.JButton();
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        newDetailButton = new javax.swing.JButton();
-        deleteDetailButton = new javax.swing.JButton();
         detailScrollPane = new javax.swing.JScrollPane();
         detailTable = new javax.swing.JTable();
 
         FormListener formListener = new FormListener();
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LAKI-LAKI", "PEREMPUAN" }));
+        newDetailButton.setText("New");
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), newDetailButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        newDetailButton.addActionListener(formListener);
+
+        deleteDetailButton.setText("Delete");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, detailTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteDetailButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        deleteDetailButton.addActionListener(formListener);
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
-        newButton.setText("PASIEN BARU");
+        newButton.setText("PENYAKIT BARU");
         newButton.addActionListener(formListener);
         jPanel1.add(newButton);
 
-        deleteButton.setText("HAPUS PASIEN");
+        deleteButton.setText("HAPUS PENYAKIT");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
         deleteButton.addActionListener(formListener);
@@ -86,85 +94,58 @@ public class formKonsultasiPasien extends JPanel {
 
         add(jPanel1);
 
+        masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());
         masterTable.setAutoCreateRowSorter(true);
         masterTable.setRowHeight(30);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idPasien}"));
-        columnBinding.setColumnName("Id Pasien");
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idPenyakit}"));
+        columnBinding.setColumnName("Id Penyakit");
         columnBinding.setColumnClass(Long.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nama}"));
-        columnBinding.setColumnName("Nama");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaPenyakit}"));
+        columnBinding.setColumnName("Nama Penyakit");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${alamat}"));
-        columnBinding.setColumnName("Alamat");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${solusi}"));
+        columnBinding.setColumnName("Solusi");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${jenisKelaminString}"));
-        columnBinding.setColumnName("Jenis Kelamin");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tempatLahir}"));
-        columnBinding.setColumnName("Tempat Lahir");
-        columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tanggalLahir}"));
-        columnBinding.setColumnName("Tanggal Lahir");
-        columnBinding.setColumnClass(java.util.Date.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
         columnBinding.setColumnName("Keterangan");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${kelompokUmur}"));
-        columnBinding.setColumnName("Kelompok Umur");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${umur}"));
-        columnBinding.setColumnName("Umur");
-        columnBinding.setColumnClass(Integer.class);
-        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         masterScrollPane.setViewportView(masterTable);
-        masterTable.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(this.jComboBox2));
 
         add(masterScrollPane);
 
-        newDetailButton.setText("REKAM MEDIS BARU");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), newDetailButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        newDetailButton.addActionListener(formListener);
-        jPanel2.add(newDetailButton);
-
-        deleteDetailButton.setText("HAPUS REKAM MEDIS");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, detailTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteDetailButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        deleteDetailButton.addActionListener(formListener);
-        jPanel2.add(deleteDetailButton);
-
-        add(jPanel2);
-
-        masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());
-        masterTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());
-        detailTable.setDefaultEditor(java.util.Date.class, new com.toedter.calendar.JDateChooserCellEditor());
-        //detailTable.setDefaultEditor(Kasus.class, new DefaultCellEditor(this.jComboBox1));
-        detailTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
-        //masterTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
+        detailTable.setAutoCreateRowSorter(true);
         detailTable.setRowHeight(30);
 
-        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${selectedElement.rekamMedisCollection}");
+        org.jdesktop.beansbinding.ELProperty eLProperty = org.jdesktop.beansbinding.ELProperty.create("${selectedElement.kasusCollection}");
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, eLProperty, detailTable);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rmId}"));
-        columnBinding.setColumnName("Rm Id");
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idKasus}"));
+        columnBinding.setColumnName("Id Kasus");
         columnBinding.setColumnClass(Long.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${tanggalKonsultasi}"));
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${gejalaList}"));
+        columnBinding.setColumnName("Gejala List");
+        columnBinding.setColumnClass(java.util.List.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rekamMedis}"));
+        columnBinding.setColumnName("Rekam Medis ID");
+        columnBinding.setColumnClass(mastercbr.table.RekamMedis.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rekamMedis.tanggalKonsultasi}"));
         columnBinding.setColumnName("Tanggal Konsultasi");
         columnBinding.setColumnClass(java.util.Date.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${kasus}"));
-        columnBinding.setColumnName("Kasus");
-        columnBinding.setColumnClass(mastercbr.table.Kasus.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rekamMedis.pasienIdPasien}"));
+        columnBinding.setColumnName("Pasien ID");
+        columnBinding.setColumnClass(mastercbr.table.Pasien.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rekamMedis.pasienIdPasien.nama}"));
+        columnBinding.setColumnName("Nama Pasien");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         jTableBinding.setSourceUnreadableValue(java.util.Collections.emptyList());
         bindingGroup.addBinding(jTableBinding);
@@ -182,22 +163,22 @@ public class formKonsultasiPasien extends JPanel {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
             if (evt.getSource() == newButton) {
-                formKonsultasiPasien.this.newButtonActionPerformed(evt);
+                formDiagnosaKasus.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
-                formKonsultasiPasien.this.deleteButtonActionPerformed(evt);
+                formDiagnosaKasus.this.deleteButtonActionPerformed(evt);
             }
             else if (evt.getSource() == saveButton) {
-                formKonsultasiPasien.this.saveButtonActionPerformed(evt);
+                formDiagnosaKasus.this.saveButtonActionPerformed(evt);
             }
             else if (evt.getSource() == refreshButton) {
-                formKonsultasiPasien.this.refreshButtonActionPerformed(evt);
+                formDiagnosaKasus.this.refreshButtonActionPerformed(evt);
             }
             else if (evt.getSource() == newDetailButton) {
-                formKonsultasiPasien.this.newDetailButtonActionPerformed(evt);
+                formDiagnosaKasus.this.newDetailButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteDetailButton) {
-                formKonsultasiPasien.this.deleteDetailButtonActionPerformed(evt);
+                formDiagnosaKasus.this.deleteDetailButtonActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -205,66 +186,62 @@ public class formKonsultasiPasien extends JPanel {
     
     private void deleteDetailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteDetailButtonActionPerformed
         int index = masterTable.getSelectedRow();
-        mastercbr.table.Pasien p = list.get(masterTable.convertRowIndexToModel(index));
-        Collection<mastercbr.table.RekamMedis> rs = p.getRekamMedisCollection();
+        mastercbr.table.Penyakit p = list.get(masterTable.convertRowIndexToModel(index));
+        Collection<mastercbr.table.Kasus> ks = p.getKasusCollection();
         int[] selected = detailTable.getSelectedRows();
-        List<mastercbr.table.RekamMedis> toRemove = new ArrayList<mastercbr.table.RekamMedis>(selected.length);
+        List<mastercbr.table.Kasus> toRemove = new ArrayList<mastercbr.table.Kasus>(selected.length);
         for (int idx = 0; idx < selected.length; idx++) {
             selected[idx] = detailTable.convertRowIndexToModel(selected[idx]);
             int count = 0;
-            Iterator<mastercbr.table.RekamMedis> iter = rs.iterator();
+            Iterator<mastercbr.table.Kasus> iter = ks.iterator();
             while (count++ < selected[idx]) {
                 iter.next();
             }
-            mastercbr.table.RekamMedis r = iter.next();
-            toRemove.add(r);
-            entityManager.remove(r);
+            mastercbr.table.Kasus k = iter.next();
+            toRemove.add(k);
+            entityManager.remove(k);
         }
-        rs.removeAll(toRemove);
+        ks.removeAll(toRemove);
         masterTable.clearSelection();
         masterTable.setRowSelectionInterval(index, index);
     }//GEN-LAST:event_deleteDetailButtonActionPerformed
 
     private void newDetailButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newDetailButtonActionPerformed
         int index = masterTable.getSelectedRow();
-        mastercbr.table.Pasien p = list.get(masterTable.convertRowIndexToModel(index));
-        Collection<mastercbr.table.RekamMedis> rs = p.getRekamMedisCollection();
-        if (rs == null) {
-            rs = new LinkedList<mastercbr.table.RekamMedis>();
-            p.setRekamMedisCollection((List) rs);
+        mastercbr.table.Penyakit p = list.get(masterTable.convertRowIndexToModel(index));
+        Collection<mastercbr.table.Kasus> ks = p.getKasusCollection();
+        if (ks == null) {
+            ks = new LinkedList<mastercbr.table.Kasus>();
+            p.setKasusCollection((List) ks);
         }
-        mastercbr.table.RekamMedis r = new mastercbr.table.RekamMedis();
-        Kasus kasus = r.getKasus();
-        kasus.setRekamMedis(r);
-        entityManager.persist(r);
-        r.setPasienIdPasien(p);
-        rs.add(r);
+        mastercbr.table.Kasus k = new mastercbr.table.Kasus();
+        entityManager.persist(k);
+        k.setPenyakitIdPenyakit(p);
+        ks.add(k);
         masterTable.clearSelection();
         masterTable.setRowSelectionInterval(index, index);
-        int row = rs.size() - 1;
+        int row = ks.size() - 1;
         detailTable.setRowSelectionInterval(row, row);
         detailTable.scrollRectToVisible(detailTable.getCellRect(row, 0, true));
     }//GEN-LAST:event_newDetailButtonActionPerformed
     
     @SuppressWarnings("unchecked")
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        detailTable.clearSelection();
-        masterTable.clearSelection();
         entityManager.getTransaction().rollback();
         entityManager.getTransaction().begin();
         java.util.Collection data = query.getResultList();
-        data.forEach((entity) -> {
+        for (Object entity : data) {
             entityManager.refresh(entity);
-        });
+        }
         list.clear();
         list.addAll(data);
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int[] selected = masterTable.getSelectedRows();
-        List<mastercbr.table.Pasien> toRemove = new ArrayList<mastercbr.table.Pasien>(selected.length);
+        List<mastercbr.table.Penyakit> toRemove = new ArrayList<mastercbr.table.Penyakit>(selected.length);
         for (int idx = 0; idx < selected.length; idx++) {
-            mastercbr.table.Pasien p = list.get(masterTable.convertRowIndexToModel(selected[idx]));
+            mastercbr.table.Penyakit p = list.get(masterTable.convertRowIndexToModel(selected[idx]));
             toRemove.add(p);
             entityManager.remove(p);
         }
@@ -272,7 +249,7 @@ public class formKonsultasiPasien extends JPanel {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void newButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButtonActionPerformed
-        mastercbr.table.Pasien p = new mastercbr.table.Pasien();
+        mastercbr.table.Penyakit p = new mastercbr.table.Penyakit();
         entityManager.persist(p);
         list.add(p);
         int row = list.size() - 1;
@@ -287,8 +264,8 @@ public class formKonsultasiPasien extends JPanel {
         } catch (RollbackException rex) {
             rex.printStackTrace();
             entityManager.getTransaction().begin();
-            List<mastercbr.table.Pasien> merged = new ArrayList<mastercbr.table.Pasien>(list.size());
-            for (mastercbr.table.Pasien p : list) {
+            List<mastercbr.table.Penyakit> merged = new ArrayList<mastercbr.table.Penyakit>(list.size());
+            for (mastercbr.table.Penyakit p : list) {
                 merged.add(entityManager.merge(p));
             }
             list.clear();
@@ -303,10 +280,8 @@ public class formKonsultasiPasien extends JPanel {
     private javax.swing.JScrollPane detailScrollPane;
     private javax.swing.JTable detailTable;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private java.util.List<mastercbr.table.Pasien> list;
+    private java.util.List<mastercbr.table.Penyakit> list;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
     private javax.swing.JButton newButton;
@@ -330,13 +305,13 @@ public class formKonsultasiPasien extends JPanel {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(formKonsultasiPasien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formDiagnosaKasus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(formKonsultasiPasien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formDiagnosaKasus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(formKonsultasiPasien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formDiagnosaKasus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(formKonsultasiPasien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(formDiagnosaKasus.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -344,7 +319,7 @@ public class formKonsultasiPasien extends JPanel {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 JFrame frame = new JFrame();
-                frame.setContentPane(new formKonsultasiPasien());
+                frame.setContentPane(new formDiagnosaKasus());
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.pack();
                 frame.setVisible(true);

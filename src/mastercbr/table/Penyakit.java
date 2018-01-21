@@ -8,13 +8,16 @@ package mastercbr.table;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -51,15 +54,23 @@ public class Penyakit implements Serializable {
     private String namaPenyakit;
     @Column(name = "KETERANGAN", length = 255)
     private String keterangan;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "penyakitIdPenyakit")
+    private Collection<Kasus> kasusCollection;
 
     public Penyakit() {
+        this.namaPenyakit = "nama penyakit";
+        this.solusi = "solusi";
     }
 
     public Penyakit(Long idPenyakit) {
+        this.namaPenyakit = "nama penyakit";
+        this.solusi = "solusi";
         this.idPenyakit = idPenyakit;
     }
 
     public Penyakit(Long idPenyakit, String namaPenyakit) {
+        this.namaPenyakit = "nama penyakit";
+        this.solusi = "solusi";
         this.idPenyakit = idPenyakit;
         this.namaPenyakit = namaPenyakit;
     }
@@ -126,7 +137,7 @@ public class Penyakit implements Serializable {
 
     @Override
     public String toString() {
-        return "mastercbr.table.Penyakit[ idPenyakit=" + idPenyakit + " ]";
+        return "Penyakit[ " + idPenyakit + " ]";
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -135,6 +146,14 @@ public class Penyakit implements Serializable {
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         changeSupport.removePropertyChangeListener(listener);
+    }
+
+    public Collection<Kasus> getKasusCollection() {
+        return kasusCollection;
+    }
+
+    public void setKasusCollection(Collection<Kasus> kasusCollection) {
+        this.kasusCollection = kasusCollection;
     }
     
 }

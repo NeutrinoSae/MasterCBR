@@ -15,6 +15,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -45,10 +47,63 @@ public class Kasus implements Serializable {
     @OneToOne(cascade = {CascadeType.ALL})
     private RekamMedis rekamMedis;
     
-//    @OneToMany
     private List<Long> gejalaList = new LinkedList<>();
+    
+    private boolean revisi;
+
+    public static final String PROP_REVISI = "revisi";
+
+    /**
+     * Get the value of revisi
+     *
+     * @return the value of revisi
+     */
+    public boolean isRevisi() {
+        return revisi;
+    }
+    @Transient
+    private double similiarity;
+
+    public static final String PROP_SIMILIARITY = "similiarity";
+
+    /**
+     * Get the value of similiarity
+     *
+     * @return the value of similiarity
+     */
+    public double getSimiliarity() {
+        return similiarity;
+    }
+
+    /**
+     * Set the value of similiarity
+     *
+     * @param similiarity new value of similiarity
+     */
+    public void setSimiliarity(double similiarity) {
+        double oldSimiliarity = this.similiarity;
+        this.similiarity = similiarity;
+        changeSupport.firePropertyChange(PROP_SIMILIARITY, oldSimiliarity, similiarity);
+    }
+
+    /**
+     * Set the value of revisi
+     *
+     * @param revisi new value of revisi
+     */
+    public void setRevisi(boolean revisi) {
+        boolean oldRevisi = this.revisi;
+        this.revisi = revisi;
+        changeSupport.firePropertyChange(PROP_REVISI, oldRevisi, revisi);
+    }
+
+//    @ManyToOne
+//    private Penyakit penyakit;
 
     public static final String PROP_GEJALALIST = "gejalaList";
+    @JoinColumn(name = "PENYAKIT_ID_PENYAKIT", referencedColumnName = "ID_PENYAKIT")
+    @ManyToOne
+    private Penyakit penyakitIdPenyakit;
 
     /**
      * Get the value of gejalaList
@@ -129,7 +184,17 @@ public class Kasus implements Serializable {
 
     @Override
     public String toString() {
-        return "mastercbr.table.Kasus[ idKasus=" + idKasus + " ]";
+        return "Kasus[ =" + idKasus + " ]";
+    }
+
+    public Penyakit getPenyakitIdPenyakit() {
+        return penyakitIdPenyakit;
+    }
+
+    public void setPenyakitIdPenyakit(Penyakit penyakitIdPenyakit) {
+        Penyakit oldPenyakitIdPenyakit = this.penyakitIdPenyakit;
+        this.penyakitIdPenyakit = penyakitIdPenyakit;
+        changeSupport.firePropertyChange("penyakitIdPenyakit", oldPenyakitIdPenyakit, penyakitIdPenyakit);
     }
 
     
