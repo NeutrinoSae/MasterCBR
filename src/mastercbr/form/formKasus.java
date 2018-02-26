@@ -327,7 +327,7 @@ public class formKasus extends JPanel {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         masterScrollPane.setViewportView(masterTable);
-        masterTable.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(this.jComboBox1));
+        masterTable.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(this.jComboBox1));
 
         add(masterScrollPane, java.awt.BorderLayout.CENTER);
 
@@ -375,7 +375,7 @@ public class formKasus extends JPanel {
         jButton5.addActionListener(formListener);
         jPanel1.add(jButton5);
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SEMUA", "LAMA", "BARU" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SEMUA", "LAMA", "BARU", "KELOMPOK UMUR 1", "KELOMPOK UMUR 2", "KELOMPOK UMUR 3" }));
         jPanel1.add(jComboBox2);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -504,6 +504,7 @@ public class formKasus extends JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jDialog1.hide();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -565,6 +566,33 @@ public class formKasus extends JPanel {
             refreshButtonActionPerformed(evt);
             list.removeIf( a -> !a.isRevisi());
         }
+        if (selectedIndex == 3) {
+            refreshButtonActionPerformed(evt);
+            list.removeIf(a -> {
+                return a.getRekamMedis().getPasienIdPasien().getKelompokUmur() == 2;
+            });
+            list.removeIf(a -> {
+                return a.getRekamMedis().getPasienIdPasien().getKelompokUmur() == 3;
+            });
+        }
+        if (selectedIndex == 4) {
+            refreshButtonActionPerformed(evt);
+            list.removeIf(a -> {
+                return a.getRekamMedis().getPasienIdPasien().getKelompokUmur() == 1;
+            });
+            list.removeIf(a -> {
+                return a.getRekamMedis().getPasienIdPasien().getKelompokUmur() == 3;
+            });
+        }
+        if (selectedIndex == 5) {
+            refreshButtonActionPerformed(evt);
+            list.removeIf(a -> {
+                return a.getRekamMedis().getPasienIdPasien().getKelompokUmur() == 2;
+            });
+            list.removeIf(a -> {
+                return a.getRekamMedis().getPasienIdPasien().getKelompokUmur() == 1;
+            });
+        }
         
 
                 
@@ -610,7 +638,7 @@ public class formKasus extends JPanel {
         list5.remove(p);
         
         formDiagnosa.setTitle("Kasus Baru untuk -> ID :"
-                + p.getRekamMedis().getPasienIdPasien().getIdPasien() 
+                + p.getIdKasus()
                 + "; Nama :"
                 + p.getRekamMedis().getPasienIdPasien().getNama()
                 + "; Kelompok Umur :"

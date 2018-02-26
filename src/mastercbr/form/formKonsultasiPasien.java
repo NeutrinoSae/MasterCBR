@@ -9,14 +9,20 @@ import java.awt.EventQueue;
 import java.beans.Beans;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.RollbackException;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import static mastercbr.form.cbrMethod.sorensonCoefficient;
+import mastercbr.table.Gejala;
 import mastercbr.table.Kasus;
+import mastercbr.table.Pasien;
 
 /**
  *
@@ -43,9 +49,70 @@ public class formKonsultasiPasien extends JPanel {
 
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU").createEntityManager();
         query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Pasien p");
+        query1 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT g FROM Gejala g");
+        query2 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT k FROM Kasus k");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
+        list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query1.getResultList());
         jComboBox2 = new javax.swing.JComboBox<>();
+        jDialog1 = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox3 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jLabel7 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jDialog2 = new javax.swing.JDialog();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        jDateChooser2 = new com.toedter.calendar.JDateChooser();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jDialog3 = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        jComboBox4 = new javax.swing.JComboBox<>();
+        jLabel14 = new javax.swing.JLabel();
+        jDateChooser3 = new com.toedter.calendar.JDateChooser();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField8 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField10 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jDateChooser4 = new com.toedter.calendar.JDateChooser();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jPanel5 = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jDialog4 = new javax.swing.JDialog();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
+        list4 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query1.getResultList());
+        list5 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query2.getResultList());
         jPanel1 = new javax.swing.JPanel();
+        newButton1 = new javax.swing.JButton();
+        newButton2 = new javax.swing.JButton();
+        newButton3 = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
@@ -62,7 +129,279 @@ public class formKonsultasiPasien extends JPanel {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LAKI-LAKI", "PEREMPUAN" }));
 
+        jDialog1.setTitle("INPUT DATA PASIEN");
+        jDialog1.setSize(800, 600);
+        jDialog1.getContentPane().setLayout(new java.awt.GridLayout(0, 2));
+
+        jLabel1.setText("ID PASIEN");
+        jDialog1.getContentPane().add(jLabel1);
+
+        jTextField1.setEditable(false);
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idPasien}"), jTextField1, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jDialog1.getContentPane().add(jTextField1);
+
+        jLabel2.setText("NAMA PASIEN");
+        jDialog1.getContentPane().add(jLabel2);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nama}"), jTextField2, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jDialog1.getContentPane().add(jTextField2);
+
+        jLabel3.setText("JENIS KELAMIN");
+        jDialog1.getContentPane().add(jLabel3);
+
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "LAKI-LAKI", "PEREMPUAN" }));
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.jenisKelaminString}"), jComboBox3, org.jdesktop.beansbinding.BeanProperty.create("selectedItem"));
+        bindingGroup.addBinding(binding);
+
+        jDialog1.getContentPane().add(jComboBox3);
+
+        jLabel4.setText("UMUR");
+        jDialog1.getContentPane().add(jLabel4);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.umur}"), jTextField4, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jDialog1.getContentPane().add(jTextField4);
+
+        jLabel5.setText("TEMPAT LAHIR");
+        jDialog1.getContentPane().add(jLabel5);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.tempatLahir}"), jTextField5, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jDialog1.getContentPane().add(jTextField5);
+
+        jLabel6.setText("TANGGAL LAHIR");
+        jDialog1.getContentPane().add(jLabel6);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.tanggalLahir}"), jDateChooser1, org.jdesktop.beansbinding.BeanProperty.create("date"));
+        bindingGroup.addBinding(binding);
+
+        jDialog1.getContentPane().add(jDateChooser1);
+
+        jLabel7.setText("ALAMAT");
+        jDialog1.getContentPane().add(jLabel7);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.alamat}"), jTextField7, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jDialog1.getContentPane().add(jTextField7);
+
+        jButton1.setText("SIMPAN");
+        jButton1.addActionListener(formListener);
+        jDialog1.getContentPane().add(jButton1);
+
+        jButton2.setText("BATAL");
+        jButton2.addActionListener(formListener);
+        jDialog1.getContentPane().add(jButton2);
+
+        jDialog2.setTitle("INPUT DATA PASIEN");
+        jDialog2.setSize(800, 600);
+        jDialog2.getContentPane().setLayout(new java.awt.GridLayout(0, 2));
+
+        jLabel9.setText("PASIEN");
+        jDialog2.getContentPane().add(jLabel9);
+
+        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, jComboBox1);
+        bindingGroup.addBinding(jComboBoxBinding);
+
+        jDialog2.getContentPane().add(jComboBox1);
+
+        jLabel13.setText("TANGGAL KONSULTASI");
+        jDialog2.getContentPane().add(jLabel13);
+
+        jDateChooser2.setDate(new Date()
+        );
+        jDialog2.getContentPane().add(jDateChooser2);
+
+        jButton3.setText("SIMPAN");
+        jButton3.addActionListener(formListener);
+        jDialog2.getContentPane().add(jButton3);
+
+        jButton4.setText("BATAL");
+        jButton4.addActionListener(formListener);
+        jDialog2.getContentPane().add(jButton4);
+
+        jDialog3.setTitle("INPUT DATA PASIEN");
+        jDialog3.setSize(800, 600);
+        jDialog3.getContentPane().setLayout(new java.awt.GridLayout(0, 1));
+
+        jPanel3.setLayout(new java.awt.GridLayout(0, 2));
+
+        jLabel10.setText("PASIEN");
+        jPanel3.add(jLabel10);
+
+        jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, jComboBox4);
+        bindingGroup.addBinding(jComboBoxBinding);
+
+        jPanel3.add(jComboBox4);
+
+        jLabel14.setText("TANGGAL KONSULTASI");
+        jPanel3.add(jLabel14);
+
+        jDateChooser3.setDate(new Date()
+        );
+        jPanel3.add(jDateChooser3);
+
+        jLabel8.setText("NAMA");
+        jPanel3.add(jLabel8);
+
+        jTextField3.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jComboBox4, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.nama}"), jTextField3, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jPanel3.add(jTextField3);
+
+        jLabel11.setText("JENIS KELAMIN");
+        jPanel3.add(jLabel11);
+
+        jTextField6.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jComboBox4, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.jenisKelaminString}"), jTextField6, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jPanel3.add(jTextField6);
+
+        jLabel12.setText("UMUR");
+        jPanel3.add(jLabel12);
+
+        jTextField8.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jComboBox4, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.umur}"), jTextField8, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jPanel3.add(jTextField8);
+
+        jLabel15.setText("TEMPAT LAHIR");
+        jPanel3.add(jLabel15);
+
+        jTextField9.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jComboBox4, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.tempatLahir}"), jTextField9, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jPanel3.add(jTextField9);
+
+        jLabel16.setText("ALAMAT");
+        jPanel3.add(jLabel16);
+
+        jTextField10.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jComboBox4, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.alamat}"), jTextField10, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jPanel3.add(jTextField10);
+
+        jLabel17.setText("TANGGAL LAHIR");
+        jPanel3.add(jLabel17);
+
+        jDateChooser4.setEnabled(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jComboBox4, org.jdesktop.beansbinding.ELProperty.create("${selectedItem.tanggalLahir}"), jDateChooser4, org.jdesktop.beansbinding.BeanProperty.create("date"));
+        bindingGroup.addBinding(binding);
+
+        jPanel3.add(jDateChooser4);
+
+        jDialog3.getContentPane().add(jPanel3);
+
+        jPanel4.setLayout(new java.awt.GridLayout());
+
+        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list1, jTable1);
+        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idGejala}"));
+        columnBinding.setColumnName("Id Gejala");
+        columnBinding.setColumnClass(Long.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaGejala}"));
+        columnBinding.setColumnName("Nama Gejala");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pilihan}"));
+        columnBinding.setColumnName("Pilihan");
+        columnBinding.setColumnClass(Boolean.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
+        columnBinding.setColumnName("Keterangan");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+
+        jScrollPane1.setViewportView(jTable1);
+
+        jPanel4.add(jScrollPane1);
+
+        jDialog3.getContentPane().add(jPanel4);
+
+        jPanel5.setLayout(new java.awt.GridLayout());
+
+        jButton5.setText("PROSES DIAGNOSA");
+        jButton5.addActionListener(formListener);
+        jPanel5.add(jButton5);
+
+        jButton6.setText("BATAL");
+        jButton6.addActionListener(formListener);
+        jPanel5.add(jButton6);
+
+        jDialog3.getContentPane().add(jPanel5);
+
+        jDialog4.getContentPane().setLayout(new java.awt.GridLayout(2, 0));
+        jDialog4.setSize(800, 600);
+
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("GEJALA YANG DIMASUKAN"));
+
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list4, jTable2);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idGejala}"));
+        columnBinding.setColumnName("Id Gejala");
+        columnBinding.setColumnClass(Long.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
+        columnBinding.setColumnName("Keterangan");
+        columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaGejala}"));
+        columnBinding.setColumnName("Nama Gejala");
+        columnBinding.setColumnClass(String.class);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane2.setViewportView(jTable2);
+
+        jDialog4.getContentPane().add(jScrollPane2);
+
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("DIAGNOSA PENYAKIT"));
+
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list5, jTable3);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idKasus}"));
+        columnBinding.setColumnName("Id Kasus");
+        columnBinding.setColumnClass(Long.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${similiarity}"));
+        columnBinding.setColumnName("Similiarity");
+        columnBinding.setColumnClass(Double.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${gejalaList}"));
+        columnBinding.setColumnName("Gejala List");
+        columnBinding.setColumnClass(java.util.List.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane3.setViewportView(jTable3);
+
+        jDialog4.getContentPane().add(jScrollPane3);
+
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
+
+        newButton1.setText("INPUT PASIEN");
+        newButton1.addActionListener(formListener);
+        jPanel1.add(newButton1);
+
+        newButton2.setText("INPUT REKAM MEDIS");
+        newButton2.addActionListener(formListener);
+        jPanel1.add(newButton2);
+
+        newButton3.setText("INPUT DIAGNOSA PASIEN");
+        newButton3.addActionListener(formListener);
+        jPanel1.add(newButton3);
 
         newButton.setText("PASIEN BARU");
         newButton.addActionListener(formListener);
@@ -70,7 +409,7 @@ public class formKonsultasiPasien extends JPanel {
 
         deleteButton.setText("HAPUS PASIEN");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
         deleteButton.addActionListener(formListener);
@@ -89,8 +428,8 @@ public class formKonsultasiPasien extends JPanel {
         masterTable.setAutoCreateRowSorter(true);
         masterTable.setRowHeight(30);
 
-        org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
-        org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idPasien}"));
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idPasien}"));
         columnBinding.setColumnName("Id Pasien");
         columnBinding.setColumnClass(Long.class);
         columnBinding.setEditable(false);
@@ -166,6 +505,18 @@ public class formKonsultasiPasien extends JPanel {
         columnBinding.setColumnName("Kasus");
         columnBinding.setColumnClass(mastercbr.table.Kasus.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${kasus.penyakitIdPenyakit.idPenyakit}"));
+        columnBinding.setColumnName("Penyakit ID");
+        columnBinding.setColumnClass(Long.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${kasus.penyakitIdPenyakit.namaPenyakit}"));
+        columnBinding.setColumnName("Penyakit");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${kasus.penyakitIdPenyakit.solusi}"));
+        columnBinding.setColumnName("Solusi");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         jTableBinding.setSourceUnreadableValue(java.util.Collections.emptyList());
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -181,7 +532,13 @@ public class formKonsultasiPasien extends JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == newButton) {
+            if (evt.getSource() == newButton1) {
+                formKonsultasiPasien.this.newButton1ActionPerformed(evt);
+            }
+            else if (evt.getSource() == newButton2) {
+                formKonsultasiPasien.this.newButton2ActionPerformed(evt);
+            }
+            else if (evt.getSource() == newButton) {
                 formKonsultasiPasien.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
@@ -198,6 +555,27 @@ public class formKonsultasiPasien extends JPanel {
             }
             else if (evt.getSource() == deleteDetailButton) {
                 formKonsultasiPasien.this.deleteDetailButtonActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton1) {
+                formKonsultasiPasien.this.jButton1ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton2) {
+                formKonsultasiPasien.this.jButton2ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton3) {
+                formKonsultasiPasien.this.jButton3ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton4) {
+                formKonsultasiPasien.this.jButton4ActionPerformed(evt);
+            }
+            else if (evt.getSource() == newButton3) {
+                formKonsultasiPasien.this.newButton3ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton5) {
+                formKonsultasiPasien.this.jButton5ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton6) {
+                formKonsultasiPasien.this.jButton6ActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -296,6 +674,155 @@ public class formKonsultasiPasien extends JPanel {
         }
     }//GEN-LAST:event_saveButtonActionPerformed
 
+    public void inputDataPasien()
+    {
+        newButton1ActionPerformed(null);
+    }
+    public void inputDataKonsulPasien()
+    {
+        newButton2ActionPerformed(null);
+    }
+    
+    private void newButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButton1ActionPerformed
+        mastercbr.table.Pasien p = new mastercbr.table.Pasien();
+        entityManager.persist(p);
+        list.add(p);
+        int row = list.size() - 1;
+        masterTable.setRowSelectionInterval(row, row);
+        masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
+        jDialog1.show();
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jDialog1.hide();
+        refreshButtonActionPerformed(evt);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        saveButtonActionPerformed(evt);
+        jDialog1.hide();
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void newButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButton2ActionPerformed
+//        int index = masterTable.getSelectedRow();
+//        mastercbr.table.Pasien p = list.get(masterTable.convertRowIndexToModel(index));
+//        Collection<mastercbr.table.RekamMedis> rs = p.getRekamMedisCollection();
+//        if (rs == null) {
+//            rs = new LinkedList<mastercbr.table.RekamMedis>();
+//            p.setRekamMedisCollection((List) rs);
+//        }
+//        mastercbr.table.RekamMedis r = new mastercbr.table.RekamMedis();
+//        Kasus kasus = r.getKasus();
+//        kasus.setRekamMedis(r);
+//        entityManager.persist(r);
+//        r.setPasienIdPasien(p);
+//        rs.add(r);
+//        masterTable.clearSelection();
+//        masterTable.setRowSelectionInterval(index, index);
+//        int row = rs.size() - 1;
+//        detailTable.setRowSelectionInterval(row, row);
+//        detailTable.scrollRectToVisible(detailTable.getCellRect(row, 0, true));
+        
+        jDialog2.show();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        mastercbr.table.Pasien p = (mastercbr.table.Pasien) jComboBox1.getSelectedItem();
+        Collection<mastercbr.table.RekamMedis> rs = p.getRekamMedisCollection();
+        if (rs == null) {
+            rs = new LinkedList<mastercbr.table.RekamMedis>();
+            p.setRekamMedisCollection((List) rs);
+        }
+        mastercbr.table.RekamMedis r = new mastercbr.table.RekamMedis();
+        Kasus kasus = r.getKasus();
+        kasus.setRekamMedis(r);
+        r.setTanggalKonsultasi(jDateChooser2.getDate());
+        entityManager.persist(r);
+        r.setPasienIdPasien(p);
+        rs.add(r);
+//        masterTable.clearSelection();
+//        masterTable.setRowSelectionInterval(index, index);
+//        int row = rs.size() - 1;
+//        detailTable.setRowSelectionInterval(row, row);
+//        detailTable.scrollRectToVisible(detailTable.getCellRect(row, 0, true));
+
+        saveButtonActionPerformed(evt);
+        jDialog2.hide();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        refreshButtonActionPerformed(evt);
+        jDialog2.hide();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void newButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButton3ActionPerformed
+        List<Gejala> resultList = query1.getResultList();
+        resultList.forEach((Gejala object) -> {
+            entityManager.refresh(object);
+            object.setPilihan(false);
+        });
+        list1.clear();
+        list1.addAll(resultList);
+        jDialog3.show();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+
+//        saveButtonActionPerformed(evt);
+        jDialog3.hide();
+        list1.removeIf(a->!a.isPilihan());
+        System.out.println("list1 = " + list1.size());
+        List<Long> listKeyGejala = new LinkedList<>();
+        list1.forEach((gejala) -> {
+            listKeyGejala.add(gejala.getIdGejala());
+        }); 
+        System.out.println("listKeyGejala = " + listKeyGejala);
+        int selectedRow = masterTable.getSelectedRow();
+        Kasus p = new Kasus();
+        System.out.println("p = " + p);
+        p.setGejalaList(listKeyGejala);
+        
+
+        list4.clear();
+        listKeyGejala.stream().map((long1) -> 
+            entityManager.find(Gejala.class, long1)).forEachOrdered((find) -> {
+            list4.add(find);
+        });
+
+        list5.clear();
+        list5.addAll(sorensonCoefficient(p, query2.getResultList()));
+        list5.remove(p);
+        
+//        jDialog4.setTitle("Kasus Baru untuk -> ID :"
+//                + p.getIdKasus()
+//                + "; Nama :"
+//                + p.getRekamMedis().getPasienIdPasien().getNama()
+//                + "; Kelompok Umur :"
+//                + p.getRekamMedis().getPasienIdPasien().getKelompokUmur()
+//                + "; Tgl Konsul :"
+//                + p.getRekamMedis().getTanggalKonsultasi().toString()
+//        );
+        jDialog4.show();
+        jDialog4.show();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        refreshButtonActionPerformed(evt);
+        jDialog3.hide();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
@@ -303,15 +830,76 @@ public class formKonsultasiPasien extends JPanel {
     private javax.swing.JScrollPane detailScrollPane;
     private javax.swing.JTable detailTable;
     private javax.persistence.EntityManager entityManager;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> jComboBox4;
+    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private com.toedter.calendar.JDateChooser jDateChooser3;
+    private com.toedter.calendar.JDateChooser jDateChooser4;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
+    private javax.swing.JDialog jDialog3;
+    private javax.swing.JDialog jDialog4;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private java.util.List<mastercbr.table.Pasien> list;
+    private java.util.List<mastercbr.table.Gejala> list1;
+    private java.util.List<mastercbr.table.Gejala> list4;
+    private java.util.List<mastercbr.table.Kasus> list5;
     private javax.swing.JScrollPane masterScrollPane;
     private javax.swing.JTable masterTable;
     private javax.swing.JButton newButton;
+    private javax.swing.JButton newButton1;
+    private javax.swing.JButton newButton2;
+    private javax.swing.JButton newButton3;
     private javax.swing.JButton newDetailButton;
     private javax.persistence.Query query;
+    private javax.persistence.Query query1;
+    private javax.persistence.Query query2;
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton saveButton;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
@@ -351,5 +939,47 @@ public class formKonsultasiPasien extends JPanel {
             }
         });
     }
+
+    public List<Kasus> sorensonCoefficient(Kasus Baru, List<Kasus> lama)
+        {
+            EntityManager entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU").createEntityManager();        
+            Query query1 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT g FROM Gejala g");
+            List<Gejala> resultList = query1.getResultList();
+            int jumlahGejala = resultList.size();
+            List<Long> gejalaListBaru = Baru.getGejalaList();
+            for (Kasus kasusLama : lama) {
+                int m11 = 0;
+                int m10 = 0;
+                int m01 = 0;
+                int m00 = 0;
+                List<Long> gejalaListLama = kasusLama.getGejalaList();
+                for (Gejala gejala : resultList) {
+                    Long idGejala = gejala.getIdGejala();
+                    if (gejalaListBaru.contains(idGejala) && gejalaListLama.contains(idGejala)) {
+                        m11++;
+                    }
+                    else if (gejalaListBaru.contains(idGejala))
+                    {
+                        m10++;
+                    }
+                    else if (gejalaListLama.contains(idGejala))
+                    {
+                        m01++;
+                    }
+                    else {
+                        m00++;
+                    }
+                }                
+                System.out.println("kasus = " + kasusLama);
+                double y = m11;
+                y = y * 2d;
+                double x = m11 + m10 + m01; 
+                x = x * 2d;
+                double temp = y / x;
+                System.out.println("temp = " + temp);
+                kasusLama.setSimiliarity(temp);
+            }            
+            return lama;
+        }    
     
 }

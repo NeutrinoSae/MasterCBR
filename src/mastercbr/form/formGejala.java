@@ -48,7 +48,17 @@ public class formGejala extends JPanel {
         valueField = new javax.swing.JTextField();
         keteranganLabel = new javax.swing.JLabel();
         keteranganField = new javax.swing.JTextField();
+        jDialog1 = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
+        newButton1 = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
@@ -106,7 +116,49 @@ public class formGejala extends JPanel {
 
         jPanel2.add(keteranganField);
 
+        jDialog1.setSize(800, 600);
+        jDialog1.setTitle("GEJALA");
+        jDialog1.getContentPane().setLayout(new java.awt.GridLayout(0, 2));
+
+        jLabel1.setText("ID GEJALA");
+        jDialog1.getContentPane().add(jLabel1);
+
+        jTextField1.setEditable(false);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idGejala}"), jTextField1, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jDialog1.getContentPane().add(jTextField1);
+
+        jLabel2.setText("NAMA GEJALA");
+        jDialog1.getContentPane().add(jLabel2);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.namaGejala}"), jTextField2, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jDialog1.getContentPane().add(jTextField2);
+
+        jLabel3.setText("KETERANGAN");
+        jDialog1.getContentPane().add(jLabel3);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.keterangan}"), jTextField3, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        jDialog1.getContentPane().add(jTextField3);
+
+        jButton1.setText("SIMPAN");
+        jButton1.addActionListener(formListener);
+        jDialog1.getContentPane().add(jButton1);
+
+        jButton2.setText("BATAL");
+        jButton2.addActionListener(formListener);
+        jDialog1.getContentPane().add(jButton2);
+
         setLayout(new java.awt.BorderLayout());
+
+        newButton1.setText("INPUT GEJALA");
+        newButton1.addActionListener(formListener);
+        jPanel1.add(newButton1);
 
         newButton.setText("GEJALA BARU");
         newButton.addActionListener(formListener);
@@ -169,6 +221,15 @@ public class formGejala extends JPanel {
             else if (evt.getSource() == refreshButton) {
                 formGejala.this.refreshButtonActionPerformed(evt);
             }
+            else if (evt.getSource() == newButton1) {
+                formGejala.this.newButton1ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton2) {
+                formGejala.this.jButton2ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton1) {
+                formGejala.this.jButton1ActionPerformed(evt);
+            }
         }
     }// </editor-fold>//GEN-END:initComponents
 
@@ -220,6 +281,33 @@ public class formGejala extends JPanel {
             list.addAll(merged);
         }
     }//GEN-LAST:event_saveButtonActionPerformed
+    
+    public void inputGejala()
+    {
+        newButton1ActionPerformed(null);
+    }
+    private void newButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newButton1ActionPerformed
+        mastercbr.table.Gejala g = new mastercbr.table.Gejala();
+        entityManager.persist(g);
+        list.add(g);
+        int row = list.size() - 1;
+        masterTable.setRowSelectionInterval(row, row);
+        masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
+        jDialog1.show();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        jDialog1.hide();
+        refreshButtonActionPerformed(evt);
+            // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        saveButtonActionPerformed(evt);
+        jDialog1.hide();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -227,8 +315,17 @@ public class formGejala extends JPanel {
     private javax.persistence.EntityManager entityManager;
     private javax.swing.JTextField idGejalaField;
     private javax.swing.JLabel idGejalaLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField keteranganField;
     private javax.swing.JLabel keteranganLabel;
     private java.util.List<mastercbr.table.Gejala> list;
@@ -237,6 +334,7 @@ public class formGejala extends JPanel {
     private javax.swing.JTextField namaGejalaField;
     private javax.swing.JLabel namaGejalaLabel;
     private javax.swing.JButton newButton;
+    private javax.swing.JButton newButton1;
     private javax.persistence.Query query;
     private javax.swing.JButton refreshButton;
     private javax.swing.JButton saveButton;

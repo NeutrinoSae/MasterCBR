@@ -633,7 +633,7 @@
         <Component class="javax.swing.JTable" name="masterTable">
           <Properties>
             <Property name="autoCreateRowSorter" type="boolean" value="true"/>
-            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" preCode="masterTable.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(this.jComboBox1));">
+            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" preCode="masterTable.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(this.jComboBox1));">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
@@ -855,10 +855,13 @@
         <Component class="javax.swing.JComboBox" name="jComboBox2">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
+              <StringArray count="6">
                 <StringItem index="0" value="SEMUA"/>
                 <StringItem index="1" value="LAMA"/>
                 <StringItem index="2" value="BARU"/>
+                <StringItem index="3" value="KELOMPOK UMUR 1"/>
+                <StringItem index="4" value="KELOMPOK UMUR 2"/>
+                <StringItem index="5" value="KELOMPOK UMUR 3"/>
               </StringArray>
             </Property>
           </Properties>

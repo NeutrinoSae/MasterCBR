@@ -161,17 +161,17 @@ public class formPenyakit extends JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == saveButton) {
-                formPenyakit.this.saveButtonActionPerformed(evt);
-            }
-            else if (evt.getSource() == refreshButton) {
-                formPenyakit.this.refreshButtonActionPerformed(evt);
-            }
-            else if (evt.getSource() == newButton) {
+            if (evt.getSource() == newButton) {
                 formPenyakit.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
                 formPenyakit.this.deleteButtonActionPerformed(evt);
+            }
+            else if (evt.getSource() == saveButton) {
+                formPenyakit.this.saveButtonActionPerformed(evt);
+            }
+            else if (evt.getSource() == refreshButton) {
+                formPenyakit.this.refreshButtonActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
