@@ -109,9 +109,9 @@ public class formKonsultasiPasien extends JPanel {
         jTable3 = new javax.swing.JTable();
         list4 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query1.getResultList());
         list5 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query2.getResultList());
+        newButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         newButton1 = new javax.swing.JButton();
-        newButton2 = new javax.swing.JButton();
         newButton3 = new javax.swing.JButton();
         newButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
@@ -311,7 +311,7 @@ public class formKonsultasiPasien extends JPanel {
 
         jDialog3.getContentPane().add(jPanel3);
 
-        jPanel4.setLayout(new java.awt.GridLayout());
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list1, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idGejala}"));
@@ -335,7 +335,7 @@ public class formKonsultasiPasien extends JPanel {
 
         jDialog3.getContentPane().add(jPanel4);
 
-        jPanel5.setLayout(new java.awt.GridLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton5.setText("PROSES DIAGNOSA");
         jButton5.addActionListener(formListener);
@@ -389,15 +389,14 @@ public class formKonsultasiPasien extends JPanel {
 
         jDialog4.getContentPane().add(jScrollPane3);
 
+        newButton2.setText("INPUT REKAM MEDIS");
+        newButton2.addActionListener(formListener);
+
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
         newButton1.setText("INPUT PASIEN");
         newButton1.addActionListener(formListener);
         jPanel1.add(newButton1);
-
-        newButton2.setText("INPUT REKAM MEDIS");
-        newButton2.addActionListener(formListener);
-        jPanel1.add(newButton2);
 
         newButton3.setText("INPUT DIAGNOSA PASIEN");
         newButton3.addActionListener(formListener);
@@ -538,6 +537,9 @@ public class formKonsultasiPasien extends JPanel {
             else if (evt.getSource() == newButton2) {
                 formKonsultasiPasien.this.newButton2ActionPerformed(evt);
             }
+            else if (evt.getSource() == newButton3) {
+                formKonsultasiPasien.this.newButton3ActionPerformed(evt);
+            }
             else if (evt.getSource() == newButton) {
                 formKonsultasiPasien.this.newButtonActionPerformed(evt);
             }
@@ -567,9 +569,6 @@ public class formKonsultasiPasien extends JPanel {
             }
             else if (evt.getSource() == jButton4) {
                 formKonsultasiPasien.this.jButton4ActionPerformed(evt);
-            }
-            else if (evt.getSource() == newButton3) {
-                formKonsultasiPasien.this.newButton3ActionPerformed(evt);
             }
             else if (evt.getSource() == jButton5) {
                 formKonsultasiPasien.this.jButton5ActionPerformed(evt);

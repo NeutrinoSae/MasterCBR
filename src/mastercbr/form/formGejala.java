@@ -183,6 +183,7 @@ public class formGejala extends JPanel {
         add(jPanel1, java.awt.BorderLayout.NORTH);
 
         masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());
+        masterTable.setAutoCreateRowSorter(true);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idGejala}"));
@@ -209,7 +210,10 @@ public class formGejala extends JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == newButton) {
+            if (evt.getSource() == newButton1) {
+                formGejala.this.newButton1ActionPerformed(evt);
+            }
+            else if (evt.getSource() == newButton) {
                 formGejala.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
@@ -221,14 +225,11 @@ public class formGejala extends JPanel {
             else if (evt.getSource() == refreshButton) {
                 formGejala.this.refreshButtonActionPerformed(evt);
             }
-            else if (evt.getSource() == newButton1) {
-                formGejala.this.newButton1ActionPerformed(evt);
+            else if (evt.getSource() == jButton1) {
+                formGejala.this.jButton1ActionPerformed(evt);
             }
             else if (evt.getSource() == jButton2) {
                 formGejala.this.jButton2ActionPerformed(evt);
-            }
-            else if (evt.getSource() == jButton1) {
-                formGejala.this.jButton1ActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -293,6 +294,7 @@ public class formGejala extends JPanel {
         int row = list.size() - 1;
         masterTable.setRowSelectionInterval(row, row);
         masterTable.scrollRectToVisible(masterTable.getCellRect(row, 0, true));
+        jDialog1.setLocationRelativeTo(null);
         jDialog1.show();
         // TODO add your handling code here:
     }//GEN-LAST:event_newButton1ActionPerformed
