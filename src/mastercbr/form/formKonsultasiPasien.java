@@ -23,6 +23,7 @@ import static mastercbr.form.cbrMethod.sorensonCoefficient;
 import mastercbr.table.Gejala;
 import mastercbr.table.Kasus;
 import mastercbr.table.Pasien;
+import mastercbr.table.RekamMedis;
 
 /**
  *
@@ -103,6 +104,10 @@ public class formKonsultasiPasien extends JPanel {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jDialog4 = new javax.swing.JDialog();
+        jPanel6 = new javax.swing.JPanel();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -228,7 +233,7 @@ public class formKonsultasiPasien extends JPanel {
         jButton4.addActionListener(formListener);
         jDialog2.getContentPane().add(jButton4);
 
-        jDialog3.setTitle("INPUT DATA PASIEN");
+        jDialog3.setTitle("FORM INPUT DIAGNOSA");
         jDialog3.setSize(800, 600);
         jDialog3.getContentPane().setLayout(new java.awt.GridLayout(0, 1));
 
@@ -347,10 +352,24 @@ public class formKonsultasiPasien extends JPanel {
 
         jDialog3.getContentPane().add(jPanel5);
 
-        jDialog4.getContentPane().setLayout(new java.awt.GridLayout(2, 0));
+        jDialog4.setTitle("FORM HASIL DIAGNOSA");
         jDialog4.setSize(800, 600);
 
+        jButton7.setText("SIMPAN");
+        jButton7.addActionListener(formListener);
+        jPanel6.add(jButton7);
+
+        jButton8.setText("TUTUP");
+        jButton8.addActionListener(formListener);
+        jPanel6.add(jButton8);
+
+        jDialog4.getContentPane().add(jPanel6, java.awt.BorderLayout.PAGE_START);
+
+        jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.LINE_AXIS));
+
         jScrollPane2.setBorder(javax.swing.BorderFactory.createTitledBorder("GEJALA YANG DIMASUKAN"));
+
+        jTable2.setAutoCreateRowSorter(true);
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list4, jTable2);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idGejala}"));
@@ -366,14 +385,20 @@ public class formKonsultasiPasien extends JPanel {
         jTableBinding.bind();
         jScrollPane2.setViewportView(jTable2);
 
-        jDialog4.getContentPane().add(jScrollPane2);
+        jPanel7.add(jScrollPane2);
 
         jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("DIAGNOSA PENYAKIT"));
+
+        jTable3.setAutoCreateRowSorter(true);
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list5, jTable3);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idKasus}"));
         columnBinding.setColumnName("Id Kasus");
         columnBinding.setColumnClass(Long.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${penyakitIdPenyakit.namaPenyakit}"));
+        columnBinding.setColumnName("Nama Penyakit");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${similiarity}"));
         columnBinding.setColumnName("Similiarity");
@@ -387,7 +412,9 @@ public class formKonsultasiPasien extends JPanel {
         jTableBinding.bind();
         jScrollPane3.setViewportView(jTable3);
 
-        jDialog4.getContentPane().add(jScrollPane3);
+        jPanel7.add(jScrollPane3);
+
+        jDialog4.getContentPane().add(jPanel7, java.awt.BorderLayout.CENTER);
 
         newButton2.setText("INPUT REKAM MEDIS");
         newButton2.addActionListener(formListener);
@@ -534,9 +561,6 @@ public class formKonsultasiPasien extends JPanel {
             if (evt.getSource() == newButton1) {
                 formKonsultasiPasien.this.newButton1ActionPerformed(evt);
             }
-            else if (evt.getSource() == newButton2) {
-                formKonsultasiPasien.this.newButton2ActionPerformed(evt);
-            }
             else if (evt.getSource() == newButton3) {
                 formKonsultasiPasien.this.newButton3ActionPerformed(evt);
             }
@@ -575,6 +599,15 @@ public class formKonsultasiPasien extends JPanel {
             }
             else if (evt.getSource() == jButton6) {
                 formKonsultasiPasien.this.jButton6ActionPerformed(evt);
+            }
+            else if (evt.getSource() == newButton2) {
+                formKonsultasiPasien.this.newButton2ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton7) {
+                formKonsultasiPasien.this.jButton7ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton8) {
+                formKonsultasiPasien.this.jButton8ActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -799,19 +832,9 @@ public class formKonsultasiPasien extends JPanel {
         });
 
         list5.clear();
-        list5.addAll(sorensonCoefficient(p, query2.getResultList()));
+        list5.addAll(knn(p, query2.getResultList()));
         list5.remove(p);
         
-//        jDialog4.setTitle("Kasus Baru untuk -> ID :"
-//                + p.getIdKasus()
-//                + "; Nama :"
-//                + p.getRekamMedis().getPasienIdPasien().getNama()
-//                + "; Kelompok Umur :"
-//                + p.getRekamMedis().getPasienIdPasien().getKelompokUmur()
-//                + "; Tgl Konsul :"
-//                + p.getRekamMedis().getTanggalKonsultasi().toString()
-//        );
-        jDialog4.show();
         jDialog4.show();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -821,6 +844,38 @@ public class formKonsultasiPasien extends JPanel {
         refreshButtonActionPerformed(evt);
         jDialog3.hide();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        Kasus k = new Kasus();
+        List<Long> gejalaList = new LinkedList<>();
+        for (Gejala gejala : list4) {
+            gejalaList.add(gejala.getIdGejala());
+        }
+        k.setGejalaList(gejalaList);
+        int selectedRowPenyakit = jTable3.getSelectedRow();
+        Kasus pilihan = list5.get(jTable3.convertRowIndexToModel(selectedRowPenyakit));
+        k.setPenyakitIdPenyakit(pilihan.getPenyakitIdPenyakit());
+        k.setRevisi(true);
+        
+        Pasien pasien = (Pasien) jComboBox4.getSelectedItem();
+        
+        RekamMedis RM = new RekamMedis();
+        RM.setPasienIdPasien(pasien);
+        RM.setKasus(k);
+        k.setRekamMedis(RM);
+        
+        
+        entityManager.persist(k);
+        saveButtonActionPerformed(evt);
+        refreshButtonActionPerformed(evt);
+        jDialog4.hide();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        jDialog4.hide();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -835,6 +890,8 @@ public class formKonsultasiPasien extends JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -869,6 +926,8 @@ public class formKonsultasiPasien extends JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -938,7 +997,22 @@ public class formKonsultasiPasien extends JPanel {
             }
         });
     }
-
+    public List<Kasus> knn(Kasus Baru, List<Kasus> lama)
+        {
+            for (Kasus kasusLama : lama) {
+                List<Long> gejalaList = Baru.getGejalaList();
+                double sim = 0d;
+                for (Long l : gejalaList) {
+                    boolean contains = kasusLama.getGejalaList().contains(l);
+                    if (contains) {
+                        Gejala find = entityManager.find(Gejala.class, l);
+                        sim += find.getValue();
+                    }
+                }
+                kasusLama.setSimiliarity(sim);
+            }
+            return lama;
+        }
     public List<Kasus> sorensonCoefficient(Kasus Baru, List<Kasus> lama)
         {
             EntityManager entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU").createEntityManager();        

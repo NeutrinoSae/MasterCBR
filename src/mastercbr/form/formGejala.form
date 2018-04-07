@@ -321,7 +321,7 @@
             </BindingProperty>
           </BindingProperties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());&#xa;masterTable.setDefaultEditor(Double.class, new myutils.gui.TablePopupEditor());"/>
             <AuxValue name="JavaCodeGenerator_VariableLocal" type="java.lang.Boolean" value="false"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="2"/>
           </AuxValues>

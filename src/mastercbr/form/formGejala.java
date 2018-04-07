@@ -183,6 +183,7 @@ public class formGejala extends JPanel {
         add(jPanel1, java.awt.BorderLayout.NORTH);
 
         masterTable.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());
+        masterTable.setDefaultEditor(Double.class, new myutils.gui.TablePopupEditor());
         masterTable.setAutoCreateRowSorter(true);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list, masterTable);

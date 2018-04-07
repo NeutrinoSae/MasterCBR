@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import mastercbr.table.Gejala;
 import mastercbr.table.Kasus;
+import mastercbr.table.Penyakit;
 
 /**
  *
@@ -60,7 +61,6 @@ public class formKasus extends JPanel {
         newButton = new javax.swing.JButton();
         query2 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Penyakit p");
         list3 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query2.getResultList());
-        jComboBox1 = new javax.swing.JComboBox<>();
         jDialog3 = new javax.swing.JDialog();
         jPanel4 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
@@ -71,18 +71,26 @@ public class formKasus extends JPanel {
         jPanel5 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTable5 = new javax.swing.JTable();
         list4 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query2.getResultList());
         list5 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
+        jDialogPenyakit = new javax.swing.JDialog();
+        jPanel7 = new javax.swing.JPanel();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTable6 = new javax.swing.JTable();
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -104,6 +112,8 @@ public class formKasus extends JPanel {
         jPanel2.add(jButton3);
 
         jDialog1.getContentPane().add(jPanel2);
+
+        jTable1.setAutoCreateRowSorter(true);
 
         org.jdesktop.swingbinding.JTableBinding jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list1, jTable1);
         org.jdesktop.swingbinding.JTableBinding.ColumnBinding columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idGejala}"));
@@ -137,6 +147,8 @@ public class formKasus extends JPanel {
 
         jDialog2.getContentPane().add(jPanel3);
 
+        jTable2.setAutoCreateRowSorter(true);
+
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list2, jTable2);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idGejala}"));
         columnBinding.setColumnName("Id Gejala");
@@ -157,9 +169,6 @@ public class formKasus extends JPanel {
         newButton.setText("New");
         newButton.addActionListener(formListener);
 
-        org.jdesktop.swingbinding.JComboBoxBinding jComboBoxBinding = org.jdesktop.swingbinding.SwingBindings.createJComboBoxBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list3, jComboBox1);
-        bindingGroup.addBinding(jComboBoxBinding);
-
         jDialog3.setTitle("Form Diagnosa Gejala");
         jDialog3.setMinimumSize(new java.awt.Dimension(400, 300));
         jDialog3.getContentPane().setLayout(new javax.swing.BoxLayout(jDialog3.getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
@@ -173,6 +182,8 @@ public class formKasus extends JPanel {
         jPanel4.add(jButton9);
 
         jDialog3.getContentPane().add(jPanel4);
+
+        jTable3.setAutoCreateRowSorter(true);
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list1, jTable3);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idGejala}"));
@@ -197,7 +208,8 @@ public class formKasus extends JPanel {
         jDialog3.getContentPane().add(jScrollPane3);
 
         formDiagnosa.setMinimumSize(new java.awt.Dimension(1080, 720));
-        formDiagnosa.getContentPane().setLayout(new javax.swing.BoxLayout(formDiagnosa.getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+        formDiagnosa.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
+        formDiagnosa.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 
         jButton10.setText("SIMPAN KASUS BARU");
 
@@ -208,9 +220,12 @@ public class formKasus extends JPanel {
         jPanel5.add(jButton10);
 
         jButton11.setText("TUTUP");
+        jButton11.addActionListener(formListener);
         jPanel5.add(jButton11);
 
-        formDiagnosa.getContentPane().add(jPanel5);
+        formDiagnosa.getContentPane().add(jPanel5, java.awt.BorderLayout.NORTH);
+
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.PAGE_AXIS));
 
         jTable4.setAutoCreateRowSorter(true);
 
@@ -228,7 +243,7 @@ public class formKasus extends JPanel {
         jTableBinding.bind();
         jScrollPane4.setViewportView(jTable4);
 
-        formDiagnosa.getContentPane().add(jScrollPane4);
+        jPanel6.add(jScrollPane4);
 
         jTable5.setAutoCreateRowSorter(true);
         jTable5.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -274,7 +289,48 @@ public class formKasus extends JPanel {
         jTableBinding.bind();
         jScrollPane5.setViewportView(jTable5);
 
-        formDiagnosa.getContentPane().add(jScrollPane5);
+        jPanel6.add(jScrollPane5);
+
+        formDiagnosa.getContentPane().add(jPanel6, java.awt.BorderLayout.CENTER);
+
+        jDialogPenyakit.setTitle("Gejala");
+        jDialogPenyakit.setMinimumSize(new java.awt.Dimension(400, 300));
+        jDialogPenyakit.getContentPane().setLayout(new javax.swing.BoxLayout(jDialogPenyakit.getContentPane(), javax.swing.BoxLayout.PAGE_AXIS));
+
+        jButton13.setText("SIMPAN");
+        jButton13.addActionListener(formListener);
+        jPanel7.add(jButton13);
+
+        jButton14.setText("TUTUP");
+        jButton14.addActionListener(formListener);
+        jPanel7.add(jButton14);
+
+        jDialogPenyakit.getContentPane().add(jPanel7);
+
+        jTable6.setAutoCreateRowSorter(true);
+
+        jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list3, jTable6);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idPenyakit}"));
+        columnBinding.setColumnName("Id Penyakit");
+        columnBinding.setColumnClass(Long.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaPenyakit}"));
+        columnBinding.setColumnName("Nama Penyakit");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${solusi}"));
+        columnBinding.setColumnName("Solusi");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
+        columnBinding.setColumnName("Keterangan");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        bindingGroup.addBinding(jTableBinding);
+        jTableBinding.bind();
+        jScrollPane6.setViewportView(jTable6);
+
+        jDialogPenyakit.getContentPane().add(jScrollPane6);
 
         setLayout(new java.awt.BorderLayout());
 
@@ -290,6 +346,7 @@ public class formKasus extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${gejalaList}"));
         columnBinding.setColumnName("Gejala List");
         columnBinding.setColumnClass(java.util.List.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${rekamMedis}"));
         columnBinding.setColumnName("Rekam Medis");
         columnBinding.setColumnClass(mastercbr.table.RekamMedis.class);
@@ -313,8 +370,9 @@ public class formKasus extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${penyakitIdPenyakit}"));
         columnBinding.setColumnName("Penyakit ID");
         columnBinding.setColumnClass(mastercbr.table.Penyakit.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${penyakitIdPenyakit.namaPenyakit}"));
-        columnBinding.setColumnName("Nama Penyakit");
+        columnBinding.setColumnName("Penyakit");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${penyakitIdPenyakit.solusi}"));
@@ -327,7 +385,7 @@ public class formKasus extends JPanel {
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         masterScrollPane.setViewportView(masterTable);
-        masterTable.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(this.jComboBox1));
+        //masterTable.getColumnModel().getColumn(7).setCellEditor(new DefaultCellEditor(this.jComboBox1));
 
         add(masterScrollPane, java.awt.BorderLayout.CENTER);
 
@@ -347,6 +405,14 @@ public class formKasus extends JPanel {
         refreshButton.addActionListener(formListener);
         jPanel1.add(refreshButton);
 
+        jButton12.setText("EDIT  PENYAKIT");
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), jButton12, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        jButton12.addActionListener(formListener);
+        jPanel1.add(jButton12);
+
         deleteButton.setText("HAPUS KASUS");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), deleteButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
@@ -355,7 +421,7 @@ public class formKasus extends JPanel {
         deleteButton.addActionListener(formListener);
         jPanel1.add(deleteButton);
 
-        jButton1.setText("SET GEJALA");
+        jButton1.setText("EDIT GEJALA");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), jButton1, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
@@ -397,6 +463,9 @@ public class formKasus extends JPanel {
             else if (evt.getSource() == refreshButton) {
                 formKasus.this.refreshButtonActionPerformed(evt);
             }
+            else if (evt.getSource() == jButton12) {
+                formKasus.this.jButton12ActionPerformed(evt);
+            }
             else if (evt.getSource() == deleteButton) {
                 formKasus.this.deleteButtonActionPerformed(evt);
             }
@@ -429,6 +498,15 @@ public class formKasus extends JPanel {
             }
             else if (evt.getSource() == jButton10) {
                 formKasus.this.jButton10ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton13) {
+                formKasus.this.jButton13ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton14) {
+                formKasus.this.jButton14ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton11) {
+                formKasus.this.jButton11ActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -634,7 +712,7 @@ public class formKasus extends JPanel {
         });
 
         list5.clear();
-        list5.addAll(sorensonCoefficient(p, list));
+        list5.addAll(knn(p, list));
         list5.remove(p);
         
         formDiagnosa.setTitle("Kasus Baru untuk -> ID :"
@@ -689,6 +767,23 @@ public class formKasus extends JPanel {
             }            
             return lama;
         }
+    public List<Kasus> knn(Kasus Baru, List<Kasus> lama)
+        {
+            for (Kasus kasusLama : lama) {
+                List<Long> gejalaList = Baru.getGejalaList();
+                                
+                double sim = 0d;
+                double totalLama = 0d;
+                                
+                sim = gejalaList.stream().filter(
+                        (l) -> (kasusLama.getGejalaList().contains(l))).map((l) -> entityManager.find(Gejala.class, l)).map((find) -> find.getValue()).reduce(sim, (accumulator, _item) -> accumulator + _item);                
+                totalLama = gejalaList.stream().map(
+                        (x) -> entityManager.find(Gejala.class, x)).map((find) -> find.getValue()).reduce(totalLama, (accumulator, _item) -> accumulator + _item);
+                sim = sim / totalLama;
+                kasusLama.setSimiliarity(sim);
+            }
+            return lama;
+        }
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         jDialog3.hide();
         // TODO add your handling code here:
@@ -711,6 +806,40 @@ public class formKasus extends JPanel {
         formDiagnosa.hide();
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        jDialogPenyakit.show();
+        jDialogPenyakit.setLocationRelativeTo(null);
+        List resultList = query2.getResultList();
+        for (Object object : resultList) {
+            entityManager.refresh(object);
+        }
+        list3.clear();
+        list3.addAll(resultList);
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        int selectedRow = masterTable.getSelectedRow();
+        int selectedPenyakit = jTable6.getSelectedRow();
+        Kasus k = list.get(masterTable.convertRowIndexToModel(selectedRow));
+        Penyakit p = list3.get(jTable6.convertColumnIndexToModel(selectedPenyakit));
+        k.setPenyakitIdPenyakit(p);
+        saveButtonActionPerformed(evt);
+        refreshButtonActionPerformed(evt);        // TODO add your handling code here:
+        jDialogPenyakit.hide();
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        jDialogPenyakit.hide();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        formDiagnosa.hide();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
@@ -719,6 +848,9 @@ public class formKasus extends JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -727,26 +859,30 @@ public class formKasus extends JPanel {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JDialog jDialog3;
+    private javax.swing.JDialog jDialogPenyakit;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
+    private javax.swing.JTable jTable6;
     private java.util.List<mastercbr.table.Kasus> list;
     private java.util.List<mastercbr.table.Gejala> list1;
     private java.util.List<mastercbr.table.Gejala> list2;

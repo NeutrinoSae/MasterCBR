@@ -223,7 +223,7 @@ public class Pasien implements Serializable {
 
     @Override
     public String toString() {
-        return "Pasien[ " + idPasien + ": "+getNama()+ " ]";
+        return "Pasien[ " + idPasien + " ]";
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
