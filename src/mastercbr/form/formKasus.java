@@ -7,6 +7,7 @@ package mastercbr.form;
 
 import java.awt.EventQueue;
 import java.beans.Beans;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -780,7 +781,17 @@ public class formKasus extends JPanel {
                 totalLama = gejalaList.stream().map(
                         (x) -> entityManager.find(Gejala.class, x)).map((find) -> find.getValue()).reduce(totalLama, (accumulator, _item) -> accumulator + _item);
                 sim = sim / totalLama;
-                kasusLama.setSimiliarity(sim);
+                BigDecimal t = new BigDecimal(sim);
+                BigDecimal t1 = BigDecimal.ONE;
+                
+                if (t.equals(t1)) {
+                    double bSize = Baru.getGejalaList().size();
+                    System.out.println("bSize = " + bSize);
+                    double lSize = kasusLama.getGejalaList().size();
+                    System.out.println("lSize = " + lSize);
+                    sim = bSize / lSize;
+                    System.out.println("sim = " + sim);
+                }                kasusLama.setSimiliarity(sim);
             }
             return lama;
         }

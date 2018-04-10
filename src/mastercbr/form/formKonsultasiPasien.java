@@ -7,6 +7,7 @@ package mastercbr.form;
 
 import java.awt.EventQueue;
 import java.beans.Beans;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -355,6 +356,8 @@ public class formKonsultasiPasien extends JPanel {
         jDialog4.setTitle("FORM HASIL DIAGNOSA");
         jDialog4.setSize(800, 600);
 
+        jPanel6.setLayout(new java.awt.GridLayout());
+
         jButton7.setText("SIMPAN");
         jButton7.addActionListener(formListener);
         jPanel6.add(jButton7);
@@ -600,14 +603,14 @@ public class formKonsultasiPasien extends JPanel {
             else if (evt.getSource() == jButton6) {
                 formKonsultasiPasien.this.jButton6ActionPerformed(evt);
             }
-            else if (evt.getSource() == newButton2) {
-                formKonsultasiPasien.this.newButton2ActionPerformed(evt);
-            }
             else if (evt.getSource() == jButton7) {
                 formKonsultasiPasien.this.jButton7ActionPerformed(evt);
             }
             else if (evt.getSource() == jButton8) {
                 formKonsultasiPasien.this.jButton8ActionPerformed(evt);
+            }
+            else if (evt.getSource() == newButton2) {
+                formKonsultasiPasien.this.newButton2ActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -1001,14 +1004,27 @@ public class formKonsultasiPasien extends JPanel {
         {
             for (Kasus kasusLama : lama) {
                 List<Long> gejalaList = Baru.getGejalaList();
+                                
                 double sim = 0d;
-                for (Long l : gejalaList) {
-                    boolean contains = kasusLama.getGejalaList().contains(l);
-                    if (contains) {
-                        Gejala find = entityManager.find(Gejala.class, l);
-                        sim += find.getValue();
-                    }
+                double totalLama = 0d;
+                                
+                sim = gejalaList.stream().filter(
+                        (l) -> (kasusLama.getGejalaList().contains(l))).map((l) -> entityManager.find(Gejala.class, l)).map((find) -> find.getValue()).reduce(sim, (accumulator, _item) -> accumulator + _item);                
+                totalLama = gejalaList.stream().map(
+                        (x) -> entityManager.find(Gejala.class, x)).map((find) -> find.getValue()).reduce(totalLama, (accumulator, _item) -> accumulator + _item);
+                sim = sim / totalLama;
+                BigDecimal t = new BigDecimal(sim);
+                BigDecimal t1 = BigDecimal.ONE;
+                
+                if (t.equals(t1)) {
+                    double bSize = Baru.getGejalaList().size();
+                    System.out.println("bSize = " + bSize);
+                    double lSize = kasusLama.getGejalaList().size();
+                    System.out.println("lSize = " + lSize);
+                    sim = bSize / lSize;
+                    System.out.println("sim = " + sim);
                 }
+
                 kasusLama.setSimiliarity(sim);
             }
             return lama;
