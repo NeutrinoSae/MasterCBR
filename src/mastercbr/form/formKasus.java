@@ -212,6 +212,8 @@ public class formKasus extends JPanel {
         formDiagnosa.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         formDiagnosa.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 
+        jPanel5.setLayout(new java.awt.GridLayout());
+
         jButton10.setText("SIMPAN KASUS BARU");
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, jTable5, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), jButton10, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
@@ -500,14 +502,14 @@ public class formKasus extends JPanel {
             else if (evt.getSource() == jButton10) {
                 formKasus.this.jButton10ActionPerformed(evt);
             }
+            else if (evt.getSource() == jButton11) {
+                formKasus.this.jButton11ActionPerformed(evt);
+            }
             else if (evt.getSource() == jButton13) {
                 formKasus.this.jButton13ActionPerformed(evt);
             }
             else if (evt.getSource() == jButton14) {
                 formKasus.this.jButton14ActionPerformed(evt);
-            }
-            else if (evt.getSource() == jButton11) {
-                formKasus.this.jButton11ActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents
@@ -713,7 +715,7 @@ public class formKasus extends JPanel {
         });
 
         list5.clear();
-        list5.addAll(knn(p, list));
+        list5.addAll(sorensonCoefficient(p, list));
         list5.remove(p);
         
         formDiagnosa.setTitle("Kasus Baru untuk -> ID :"

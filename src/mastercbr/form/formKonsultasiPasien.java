@@ -20,6 +20,10 @@ import javax.persistence.RollbackException;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.RowSorter;
+import javax.swing.SortOrder;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import static mastercbr.form.cbrMethod.sorensonCoefficient;
 import mastercbr.table.Gejala;
 import mastercbr.table.Kasus;
@@ -52,7 +56,7 @@ public class formKonsultasiPasien extends JPanel {
         entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU").createEntityManager();
         query = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT p FROM Pasien p");
         query1 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT g FROM Gejala g");
-        query2 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT k FROM Kasus k");
+        query2 = java.beans.Beans.isDesignTime() ? null : entityManager.createQuery("SELECT k FROM Kasus k where k.revisi = TRUE");
         list = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query.getResultList());
         list1 = java.beans.Beans.isDesignTime() ? java.util.Collections.emptyList() : org.jdesktop.observablecollections.ObservableCollections.observableList(query1.getResultList());
         jComboBox2 = new javax.swing.JComboBox<>();
@@ -63,8 +67,6 @@ public class formKonsultasiPasien extends JPanel {
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -166,14 +168,6 @@ public class formKonsultasiPasien extends JPanel {
         bindingGroup.addBinding(binding);
 
         jDialog1.getContentPane().add(jComboBox3);
-
-        jLabel4.setText("UMUR");
-        jDialog1.getContentPane().add(jLabel4);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.umur}"), jTextField4, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        jDialog1.getContentPane().add(jTextField4);
 
         jLabel5.setText("TEMPAT LAHIR");
         jDialog1.getContentPane().add(jLabel5);
@@ -356,7 +350,7 @@ public class formKonsultasiPasien extends JPanel {
         jDialog4.setTitle("FORM HASIL DIAGNOSA");
         jDialog4.setSize(800, 600);
 
-        jPanel6.setLayout(new java.awt.GridLayout());
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton7.setText("SIMPAN");
         jButton7.addActionListener(formListener);
@@ -378,12 +372,12 @@ public class formKonsultasiPasien extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${idGejala}"));
         columnBinding.setColumnName("Id Gejala");
         columnBinding.setColumnClass(Long.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
-        columnBinding.setColumnName("Keterangan");
-        columnBinding.setColumnClass(String.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaGejala}"));
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
+        columnBinding.setColumnName("Bobot");
+        columnBinding.setColumnClass(Double.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(jTable2);
@@ -833,9 +827,26 @@ public class formKonsultasiPasien extends JPanel {
             entityManager.find(Gejala.class, long1)).forEachOrdered((find) -> {
             list4.add(find);
         });
+        
+        
 
+
+        
         list5.clear();
-        list5.addAll(knn(p, query2.getResultList()));
+//        entityManager.createQuery("SELECT k FROM Kasus k where k.revisi = TRUE");
+        list5.addAll(sorensonCoefficient(p, query2.getResultList()));
+
+        TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable3.getModel());
+        jTable3.setRowSorter(sorter);
+        List<RowSorter.SortKey> sortKeys = new ArrayList<>();
+
+        int columnIndexToSort = 2;
+        sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.DESCENDING));
+
+        sorter.setSortKeys(sortKeys);
+        sorter.sort();
+        
+        
         list5.remove(p);
         
         jDialog4.show();
@@ -858,7 +869,7 @@ public class formKonsultasiPasien extends JPanel {
         int selectedRowPenyakit = jTable3.getSelectedRow();
         Kasus pilihan = list5.get(jTable3.convertRowIndexToModel(selectedRowPenyakit));
         k.setPenyakitIdPenyakit(pilihan.getPenyakitIdPenyakit());
-        k.setRevisi(true);
+        k.setRevisi(false);
         
         Pasien pasien = (Pasien) jComboBox4.getSelectedItem();
         
@@ -918,7 +929,6 @@ public class formKonsultasiPasien extends JPanel {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -941,7 +951,6 @@ public class formKonsultasiPasien extends JPanel {
     private javax.swing.JTextField jTextField10;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
