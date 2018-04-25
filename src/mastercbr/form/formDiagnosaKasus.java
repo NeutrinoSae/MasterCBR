@@ -236,7 +236,10 @@ public class formDiagnosaKasus extends JPanel {
     private class FormListener implements java.awt.event.ActionListener {
         FormListener() {}
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            if (evt.getSource() == newButton) {
+            if (evt.getSource() == newButton1) {
+                formDiagnosaKasus.this.newButton1ActionPerformed(evt);
+            }
+            else if (evt.getSource() == newButton) {
                 formDiagnosaKasus.this.newButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteButton) {
@@ -248,23 +251,20 @@ public class formDiagnosaKasus extends JPanel {
             else if (evt.getSource() == refreshButton) {
                 formDiagnosaKasus.this.refreshButtonActionPerformed(evt);
             }
+            else if (evt.getSource() == deleteButton1) {
+                formDiagnosaKasus.this.deleteButton1ActionPerformed(evt);
+            }
             else if (evt.getSource() == newDetailButton) {
                 formDiagnosaKasus.this.newDetailButtonActionPerformed(evt);
             }
             else if (evt.getSource() == deleteDetailButton) {
                 formDiagnosaKasus.this.deleteDetailButtonActionPerformed(evt);
             }
-            else if (evt.getSource() == deleteButton1) {
-                formDiagnosaKasus.this.deleteButton1ActionPerformed(evt);
-            }
-            else if (evt.getSource() == newButton1) {
-                formDiagnosaKasus.this.newButton1ActionPerformed(evt);
+            else if (evt.getSource() == jButton1) {
+                formDiagnosaKasus.this.jButton1ActionPerformed(evt);
             }
             else if (evt.getSource() == jButton2) {
                 formDiagnosaKasus.this.jButton2ActionPerformed(evt);
-            }
-            else if (evt.getSource() == jButton1) {
-                formDiagnosaKasus.this.jButton1ActionPerformed(evt);
             }
         }
     }// </editor-fold>//GEN-END:initComponents

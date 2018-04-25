@@ -125,6 +125,10 @@ public class formKasus extends JPanel {
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
+        columnBinding.setColumnName("Bobot");
+        columnBinding.setColumnClass(Double.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
         columnBinding.setColumnName("Keterangan");
         columnBinding.setColumnClass(String.class);
@@ -212,7 +216,7 @@ public class formKasus extends JPanel {
         formDiagnosa.setModalExclusionType(java.awt.Dialog.ModalExclusionType.APPLICATION_EXCLUDE);
         formDiagnosa.setModalityType(java.awt.Dialog.ModalityType.APPLICATION_MODAL);
 
-        jPanel5.setLayout(new java.awt.GridLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton10.setText("SIMPAN KASUS BARU");
 
@@ -639,11 +643,11 @@ public class formKasus extends JPanel {
         if (selectedIndex == 0) {
             refreshButtonActionPerformed(evt);
         }
-        if (selectedIndex == 1) {
+        if (selectedIndex == 2) {
             refreshButtonActionPerformed(evt);
             list.removeIf( a -> a.isRevisi());
         }
-        if (selectedIndex == 2) {
+        if (selectedIndex == 1) {
             refreshButtonActionPerformed(evt);
             list.removeIf( a -> !a.isRevisi());
         }
@@ -715,7 +719,7 @@ public class formKasus extends JPanel {
         });
 
         list5.clear();
-        list5.addAll(sorensonCoefficient(p, list));
+        list5.addAll(knn(p, list));
         list5.remove(p);
         
         formDiagnosa.setTitle("Kasus Baru untuk -> ID :"
