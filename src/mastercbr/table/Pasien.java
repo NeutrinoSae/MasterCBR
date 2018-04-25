@@ -190,13 +190,13 @@ public class Pasien implements Serializable {
                 , tanggalLahir.getDate());
         LocalDate now = LocalDate.now(); 
         int x = Period.between(BD, now).getYears();
-        if (x <= 20) {
+        if (x <= 5) {
             setKelompokUmur(1);
         }
-        if (x >= 20) {
+        if (x >= 5) {
             setKelompokUmur(2);
         }
-        if (x > 50) {
+        if (x > 12) {
             setKelompokUmur(3);
         }
         return x;

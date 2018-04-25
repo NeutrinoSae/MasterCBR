@@ -841,8 +841,14 @@ public class formKonsultasiPasien extends JPanel {
 
         
         list5.clear();
+
 //        entityManager.createQuery("SELECT k FROM Kasus k where k.revisi = TRUE");
-        list5.addAll(knn(p, query2.getResultList()));
+        List<Kasus> resultList = query2.getResultList();
+        Pasien pasien = (Pasien) jComboBox4.getSelectedItem();
+        Integer kelompokUmur = pasien.getKelompokUmur();
+        resultList.removeIf( a -> a.getRekamMedis().getPasienIdPasien().getKelompokUmur() != kelompokUmur);
+
+        list5.addAll(knn(p, resultList));
 
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable3.getModel());
         jTable3.setRowSorter(sorter);

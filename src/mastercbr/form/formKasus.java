@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import mastercbr.table.Gejala;
 import mastercbr.table.Kasus;
+import mastercbr.table.Pasien;
 import mastercbr.table.Penyakit;
 
 /**
@@ -202,6 +203,10 @@ public class formKasus extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaGejala}"));
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
+        columnBinding.setColumnName("Bobot");
+        columnBinding.setColumnClass(Double.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pilihan}"));
         columnBinding.setColumnName("Pilihan");
@@ -719,7 +724,15 @@ public class formKasus extends JPanel {
         });
 
         list5.clear();
-        list5.addAll(knn(p, list));
+        
+        Pasien pasien = p.getRekamMedis().getPasienIdPasien();
+        System.out.println("pasien = " + pasien);
+        Integer kelompokUmur = pasien.getKelompokUmur();
+        
+        List<Kasus> resultList = query.getResultList();
+        resultList.removeIf( a -> !a.isRevisi());
+        resultList.removeIf( a -> a.getRekamMedis().getPasienIdPasien().getKelompokUmur() != kelompokUmur);
+        list5.addAll(knn(p, resultList));
         list5.remove(p);
         
         formDiagnosa.setTitle("Kasus Baru untuk -> ID :"
