@@ -60,7 +60,10 @@ public class RekamMedis implements Serializable {
     private Kasus kasus;
 //    private Kasus kasus;
 
-
+    public String getInfo()
+    {
+        return "[RM-" + rmId + "]";
+    }
     public RekamMedis() {
         this.kasus = new Kasus();
         this.tanggalKonsultasi = new Date();
@@ -137,7 +140,7 @@ public class RekamMedis implements Serializable {
 
     @Override
     public String toString() {
-        return "RekamMedis[" + rmId + " ]";
+        return "RM[" + rmId + " ]";
     }
 
     public Pasien getPasienIdPasien() {

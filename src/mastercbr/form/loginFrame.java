@@ -42,11 +42,9 @@ public class loginFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(300, 300));
         getContentPane().setLayout(new java.awt.GridLayout(2, 0));
 
-        jTextField1.setText("ADMIN");
         jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder("USERNAME"));
         getContentPane().add(jTextField1);
 
-        jPasswordField1.setText("ADMIN");
         jPasswordField1.setBorder(javax.swing.BorderFactory.createTitledBorder("PASSWORD"));
         getContentPane().add(jPasswordField1);
 
@@ -80,8 +78,15 @@ public class loginFrame extends javax.swing.JFrame {
         }
         if (findSingleDataUser.getPassword().equals(pass)) {
             javax.swing.JOptionPane.showMessageDialog(null, "Login berhasil. " +user); 
-            this.hide();
-            formMain.main(null);
+            this.hide();            
+            if (findSingleDataUser.getKeterangan().equals("ADMIN")) {
+                formMain.main(null);
+            }
+            else if (findSingleDataUser.getKeterangan().equals("PETUGAS"))
+            {
+                formMain formMain = new formMain("PETUGAS");
+                formMain.setVisible(true);
+            }
         }
         else {
             javax.swing.JOptionPane.showMessageDialog(null, "Salah username dan password");        

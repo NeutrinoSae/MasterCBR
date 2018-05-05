@@ -134,10 +134,15 @@ public class Penyakit implements Serializable {
         }
         return true;
     }
+    
+    public String getInfo()
+    {
+        return "[P-" + idPenyakit + "]";
+    }
 
     @Override
     public String toString() {
-        return "Penyakit[ " + idPenyakit + " ]";
+        return "[P-" + idPenyakit + "]";
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

@@ -115,9 +115,9 @@
               </Properties>
               <BindingProperties>
                 <BindingProperty name="elements" source="list1" target="jTable1" targetPath="elements" updateStrategy="0" immediately="true">
-                  <Subbinding sourcePath="${idGejala}">
+                  <Subbinding sourcePath="${info}">
                     <BindingParameter name="NAME" value="Id Gejala"/>
-                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                   <Subbinding sourcePath="${namaGejala}">
@@ -245,9 +245,9 @@
               </Properties>
               <BindingProperties>
                 <BindingProperty name="elements" source="list2" target="jTable2" targetPath="elements" updateStrategy="0" immediately="true">
-                  <Subbinding sourcePath="${idGejala}">
+                  <Subbinding sourcePath="${info}">
                     <BindingParameter name="NAME" value="Id Gejala"/>
-                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                   <Subbinding sourcePath="${keterangan}">
@@ -381,9 +381,9 @@
               </Properties>
               <BindingProperties>
                 <BindingProperty name="elements" source="list1" target="jTable3" targetPath="elements" updateStrategy="0" immediately="true">
-                  <Subbinding sourcePath="${idGejala}">
+                  <Subbinding sourcePath="${info}">
                     <BindingParameter name="NAME" value="Id Gejala"/>
-                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                   <Subbinding sourcePath="${keterangan}">
@@ -481,16 +481,41 @@
                 <Component class="javax.swing.JTable" name="jTable4">
                   <Properties>
                     <Property name="autoCreateRowSorter" type="boolean" value="true"/>
+                    <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                      <TableColumnModel selectionModel="0">
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                        <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                          <Title/>
+                          <Editor/>
+                          <Renderer/>
+                        </Column>
+                      </TableColumnModel>
+                    </Property>
+                    <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                    </Property>
                   </Properties>
                   <BindingProperties>
                     <BindingProperty name="elements" source="list4" target="jTable4" targetPath="elements" updateStrategy="0" immediately="true">
-                      <Subbinding sourcePath="${idGejala}">
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                      <Subbinding sourcePath="${info}">
+                        <BindingParameter name="NAME" value="Id Gejala"/>
+                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${namaGejala}">
+                        <BindingParameter name="NAME" value="Nama Gejala"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                       <Subbinding sourcePath="${keterangan}">
+                        <BindingParameter name="NAME" value="Keterangan"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                       </Subbinding>
                     </BindingProperty>
@@ -566,9 +591,9 @@
                   </Properties>
                   <BindingProperties>
                     <BindingProperty name="elements" source="list5" target="jTable5" targetPath="elements" updateStrategy="0" immediately="true">
-                      <Subbinding sourcePath="${idKasus}">
+                      <Subbinding sourcePath="${info}">
                         <BindingParameter name="NAME" value="Id Kasus"/>
-                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                        <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                         <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                       </Subbinding>
                       <Subbinding sourcePath="${similiarity}">
@@ -719,9 +744,9 @@
               </Properties>
               <BindingProperties>
                 <BindingProperty name="elements" source="list3" target="jTable6" targetPath="elements" updateStrategy="0" immediately="true">
-                  <Subbinding sourcePath="${idPenyakit}">
+                  <Subbinding sourcePath="${info}">
                     <BindingParameter name="NAME" value="Id Penyakit"/>
-                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                    <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                     <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
                   </Subbinding>
                   <Subbinding sourcePath="${namaPenyakit}">
@@ -846,9 +871,9 @@
           </Properties>
           <BindingProperties>
             <BindingProperty name="elements" source="list" target="masterTable" targetPath="elements" updateStrategy="0" immediately="true">
-              <Subbinding sourcePath="${idKasus}">
+              <Subbinding sourcePath="${info}">
                 <BindingParameter name="NAME" value="Id Kasus"/>
-                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Long.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${gejalaList}">
@@ -1025,6 +1050,13 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="JUMLAH DATA"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
         </Component>
       </SubComponents>
     </Container>

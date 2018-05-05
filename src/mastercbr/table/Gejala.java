@@ -108,6 +108,10 @@ public class Gejala implements Serializable {
         return value;
     }
 
+    public String getInfo()
+    {
+        return "[G-" + idGejala + "]";
+    }    
     public void setValue(Double value) {
         Double oldValue = this.value;
         this.value = value;

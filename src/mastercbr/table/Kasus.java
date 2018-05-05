@@ -52,7 +52,10 @@ public class Kasus implements Serializable {
     private boolean revisi;
 
     public static final String PROP_REVISI = "revisi";
-
+    public String getInfo()
+    {
+        return "[K-" + idKasus + "]";
+    }
     /**
      * Get the value of revisi
      *
@@ -184,7 +187,7 @@ public class Kasus implements Serializable {
 
     @Override
     public String toString() {
-        return "Kasus[ =" + idKasus + " ]";
+        return "K[ =" + idKasus + " ]";
     }
 
     public Penyakit getPenyakitIdPenyakit() {

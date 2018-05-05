@@ -29,6 +29,7 @@ public class MasterCBR {
             Login login = new Login();
             login.setUsername("ADMIN");
             login.setPassword("ADMIN");
+            login.setKeterangan("ADMIN");
             try {
                 jpaController.create(login);
             } catch (Exception ex) {
