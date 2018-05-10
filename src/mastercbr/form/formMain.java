@@ -24,7 +24,7 @@ public class formMain extends javax.swing.JFrame {
         Image image = home.getImage(); // transform it 
         Image newimg = image.getScaledInstance(this.getSize().width,600,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         ImageIcon imageIcon = new ImageIcon(newimg);
-        jLabel1.setIcon(imageIcon);
+//        jLabel1.setIcon(imageIcon);
         this.setExtendedState(6);
     }
 

@@ -25,13 +25,17 @@ public class MasterCBR {
         System.out.println("mastercbr.MasterCBR.main()");
         LoginJpaController jpaController = new LoginJpaController(javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU"));
         List<Login> findLoginEntities = jpaController.findLoginEntities();
-        if (findLoginEntities.size() < 1) {
-            Login login = new Login();
-            login.setUsername("ADMIN");
-            login.setPassword("ADMIN");
-            login.setKeterangan("ADMIN");
+        if (findLoginEntities.size() < 2) {
+            Login admin = new Login();
+            admin.setUsername("ADMIN");
+            admin.setPassword("ADMIN");
+            admin.setKeterangan("ADMIN");
+            Login petugas = new Login();
+            petugas.setUsername("PETUGAS");
+            petugas.setPassword("PETUGAS");
+            petugas.setKeterangan("PETUGAS");
             try {
-                jpaController.create(login);
+                jpaController.create(admin);
             } catch (Exception ex) {
                 Logger.getLogger(MasterCBR.class.getName()).log(Level.SEVERE, null, ex);
             }

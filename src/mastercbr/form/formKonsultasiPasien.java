@@ -19,6 +19,7 @@ import javax.persistence.Query;
 import javax.persistence.RollbackException;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
@@ -322,19 +323,20 @@ public class formKonsultasiPasien extends JPanel {
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pilihan}"));
-        columnBinding.setColumnName("Pilihan");
-        columnBinding.setColumnClass(Boolean.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
+        columnBinding.setColumnName("Bobot");
+        columnBinding.setColumnClass(Double.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
         columnBinding.setColumnName("Keterangan");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pilihan}"));
+        columnBinding.setColumnName("Pilihan");
+        columnBinding.setColumnClass(Boolean.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         jPanel4.add(jScrollPane1);
 
@@ -382,36 +384,37 @@ public class formKonsultasiPasien extends JPanel {
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
+        columnBinding.setColumnName("Bobot");
+        columnBinding.setColumnClass(Double.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         jPanel7.add(jScrollPane2);
 
         jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder("DIAGNOSA PENYAKIT"));
 
+        jTable3.setDefaultEditor(String.class, new myutils.gui.TablePopupEditor());
         jTable3.setAutoCreateRowSorter(true);
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list5, jTable3);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${info}"));
-        columnBinding.setColumnName("Id Kasus");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${penyakitIdPenyakit.namaPenyakit}"));
-        columnBinding.setColumnName("Nama Penyakit");
+        columnBinding.setColumnName("Info");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${similiarity}"));
         columnBinding.setColumnName("Similiarity");
         columnBinding.setColumnClass(Double.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${gejalaList}"));
-        columnBinding.setColumnName("Gejala List");
-        columnBinding.setColumnClass(java.util.List.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${penyakitIdPenyakit.namaPenyakit}"));
+        columnBinding.setColumnName("Penyakit Id Penyakit");
+        columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${penyakitIdPenyakit.solusi}"));
+        columnBinding.setColumnName("Solusi");
+        columnBinding.setColumnClass(String.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane3.setViewportView(jTable3);
@@ -847,21 +850,42 @@ public class formKonsultasiPasien extends JPanel {
         Integer kelompokUmur = pasien.getKelompokUmur();
         resultList.removeIf( a -> a.getRekamMedis().getPasienIdPasien().getKelompokUmur() != kelompokUmur);
 
-        list5.addAll(sorensonCoefficient(p, resultList));
+        list5.addAll(knn(p, resultList));
 
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable3.getModel());
         jTable3.setRowSorter(sorter);
         List<RowSorter.SortKey> sortKeys = new ArrayList<>();
 
-        int columnIndexToSort = 2;
+        int columnIndexToSort = 1;
         sortKeys.add(new RowSorter.SortKey(columnIndexToSort, SortOrder.DESCENDING));
 
         sorter.setSortKeys(sortKeys);
         sorter.sort();
         
-        
+        try {
+            jTable3.setRowSelectionInterval(0, 0);
+            Kasus get = list5.get(jTable3.convertRowIndexToModel(0));
+            System.out.println("get = " + get);
+            if (get.getSimiliarity() > 0.74d) {
+                
+            String pesan = "HASIL DIAGNOSA"
+                    + "\nKasus = "
+                    + get.getInfo()
+                    + "\nSimiliarity = "
+                    + get.getSimiliarity()
+                    + "\nPenyakit = "
+                    + get.getPenyakitIdPenyakit().getNamaPenyakit()
+                    + "\nSaran = "
+                    + get.getPenyakitIdPenyakit().getSolusi()
+                    + "";
+            JOptionPane.showMessageDialog(this, pesan);
+            }
+//            jTable3.getsel
+        } catch (Exception e) {
+        }
+
         list5.remove(p);
-        
+//        jTable3.setse
         jDialog4.show();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -1081,13 +1105,13 @@ public class formKonsultasiPasien extends JPanel {
                         m00++;
                     }
                 }                
-                System.out.println("kasus = " + kasusLama);
+//                System.out.println("kasus = " + kasusLama);
                 double y = m11;
                 y = y * 2d;
                 double x = m11 + m10 + m01; 
                 x = x * 2d;
                 double temp = y / x;
-                System.out.println("temp = " + temp);
+//                System.out.println("temp = " + temp);
                 kasusLama.setSimiliarity(temp);
             }            
             return lama;
