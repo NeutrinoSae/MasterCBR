@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -41,7 +42,7 @@ public class Login implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_USERS", nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="login")     
     private Long idUsers;
     @Column(name = "USERNAME", length = 255)
     private String username;

@@ -16,6 +16,9 @@ import mastercbr.table.Kasus;
  * @author SEED
  */
 public class cbrMethod {
+    
+    private static final EntityManager entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU").createEntityManager();
+    
     public static List<Kasus> sorensonCoefficient(Kasus Baru, List<Kasus> lama)
         {
             EntityManager entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU").createEntityManager();        
@@ -57,4 +60,57 @@ public class cbrMethod {
             }            
             return lama;
         }    
+    
+    public static List<Kasus> indexingNaiveBayes(List<Kasus> data)
+    {   
+        System.out.println("mastercbr.form.cbrMethod.indexingNaiveBayes()");
+    
+        return data;
+    }
+
+    public static List<Kasus> indexingNaiveBayes(List<Kasus> list, Kasus find) {
+        System.out.println("mastercbr.form.cbrMethod.indexingNaiveBayes()");
+    
+        return list;
+    }
+    public static List<Kasus> retrieveCosineSimilarity (List<Kasus> list, Kasus find) {
+        System.out.println("mastercbr.form.cbrMethod.indexingNaiveBayes()");
+        
+        for (Kasus kasus : list) {
+            double xy = getXY(find, kasus);
+            double absoluteX = getAbsolute(find.getGejalaList());
+            double absoluteY = getAbsolute(kasus.getGejalaList());
+            double absoluteXY = absoluteX*absoluteY;
+            double similiarity = xy / absoluteXY;
+            kasus.setSimiliarity(similiarity);
+            
+        }
+        
+        return list;
+    }
+    private static double getAbsolute(List<Long> list)
+    {
+        double absolute = 0d;
+        for (Long l : list) {
+            absolute = absolute + (1 * 1);            
+        }
+        absolute = Math.sqrt(absolute);
+        return absolute;
+    }
+    private static double getXY(Kasus X, Kasus Y)
+    {
+        double xy = 0d;        
+        List<Long> gejalaListX = X.getGejalaList();
+        List<Long> gejalaListY = Y.getGejalaList();
+        
+        for (Long l : gejalaListX) {
+            if (gejalaListY.contains(l)) {
+                Gejala find = entityManager.find(Gejala.class, l);
+                Double bobot = find.getValue();
+                xy = xy + (bobot);
+            }
+        }
+        return xy;
+    }
+    
 }

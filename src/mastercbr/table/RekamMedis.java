@@ -14,6 +14,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -45,7 +46,7 @@ public class RekamMedis implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="rekammedis")     
     @Column(name = "RM_ID", nullable = false)
     private Long rmId;
     @Column(name = "TANGGAL_KONSULTASI")

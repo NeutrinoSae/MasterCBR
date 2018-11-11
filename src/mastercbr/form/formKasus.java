@@ -9,8 +9,10 @@ import java.awt.EventQueue;
 import java.beans.Beans;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.RollbackException;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JFrame;
@@ -67,6 +69,7 @@ public class formKasus extends JPanel {
         jPanel4 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         formDiagnosa = new javax.swing.JDialog();
@@ -89,6 +92,7 @@ public class formKasus extends JPanel {
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
@@ -98,8 +102,8 @@ public class formKasus extends JPanel {
         jButton2 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jButton15 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
 
         FormListener formListener = new FormListener();
 
@@ -128,10 +132,6 @@ public class formKasus extends JPanel {
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
-        columnBinding.setColumnName("Bobot");
-        columnBinding.setColumnClass(Double.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
         columnBinding.setColumnName("Keterangan");
         columnBinding.setColumnClass(String.class);
@@ -159,18 +159,17 @@ public class formKasus extends JPanel {
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list2, jTable2);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${info}"));
-        columnBinding.setColumnName("Id Gejala");
+        columnBinding.setColumnName("Info");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
         columnBinding.setColumnName("Keterangan");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaGejala}"));
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
-        columnBinding.setColumnName("Bobot");
-        columnBinding.setColumnClass(Double.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane2.setViewportView(jTable2);
@@ -192,6 +191,10 @@ public class formKasus extends JPanel {
         jButton9.addActionListener(formListener);
         jPanel4.add(jButton9);
 
+        jButton16.setText("RESET");
+        jButton16.addActionListener(formListener);
+        jPanel4.add(jButton16);
+
         jDialog3.getContentPane().add(jPanel4);
 
         jTable3.setAutoCreateRowSorter(true);
@@ -201,21 +204,17 @@ public class formKasus extends JPanel {
         columnBinding.setColumnName("Id Gejala");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
-        columnBinding.setColumnName("Keterangan");
-        columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaGejala}"));
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
-        columnBinding.setColumnName("Bobot");
-        columnBinding.setColumnClass(Double.class);
-        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pilihan}"));
         columnBinding.setColumnName("Pilihan");
         columnBinding.setColumnClass(Boolean.class);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
+        columnBinding.setColumnName("Keterangan");
+        columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane3.setViewportView(jTable3);
@@ -254,12 +253,11 @@ public class formKasus extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaGejala}"));
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
         columnBinding.setColumnName("Keterangan");
         columnBinding.setColumnClass(String.class);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
-        columnBinding.setColumnName("Bobot");
-        columnBinding.setColumnClass(Double.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane4.setViewportView(jTable4);
@@ -410,6 +408,9 @@ public class formKasus extends JPanel {
 
         add(masterScrollPane, java.awt.BorderLayout.CENTER);
 
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel1.add(jLabel2);
+
         jButton7.setText("DIAGNOSA");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, masterTable, org.jdesktop.beansbinding.ELProperty.create("${selectedElement != null}"), jButton7, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
@@ -465,9 +466,13 @@ public class formKasus extends JPanel {
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SEMUA", "LAMA", "BARU", "KELOMPOK UMUR 1", "KELOMPOK UMUR 2", "KELOMPOK UMUR 3" }));
         jPanel1.add(jComboBox2);
 
-        jLabel1.setText("JUMLAH DATA");
-        jPanel1.add(jLabel1);
-        jPanel1.add(jLabel2);
+        jButton15.setText("CARI");
+        jButton15.addActionListener(formListener);
+        jPanel1.add(jButton15);
+
+        jTextField1.setMinimumSize(new java.awt.Dimension(150, 30));
+        jTextField1.setPreferredSize(new java.awt.Dimension(150, 30));
+        jPanel1.add(jTextField1);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -503,6 +508,9 @@ public class formKasus extends JPanel {
             else if (evt.getSource() == jButton5) {
                 formKasus.this.jButton5ActionPerformed(evt);
             }
+            else if (evt.getSource() == jButton15) {
+                formKasus.this.jButton15ActionPerformed(evt);
+            }
             else if (evt.getSource() == jButton4) {
                 formKasus.this.jButton4ActionPerformed(evt);
             }
@@ -520,6 +528,9 @@ public class formKasus extends JPanel {
             }
             else if (evt.getSource() == jButton9) {
                 formKasus.this.jButton9ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton16) {
+                formKasus.this.jButton16ActionPerformed(evt);
             }
             else if (evt.getSource() == jButton10) {
                 formKasus.this.jButton10ActionPerformed(evt);
@@ -555,7 +566,7 @@ public class formKasus extends JPanel {
         }
         list3.clear();
         list3.addAll(data2);
-        jLabel2.setText(list.size() + "");
+        jLabel2.setText(list.size() + " Data");
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
@@ -706,13 +717,7 @@ public class formKasus extends JPanel {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         jDialog3.show();
         jDialog3.setLocationRelativeTo(null);
-        List<Gejala> resultList = query1.getResultList();
-        resultList.forEach((Gejala object) -> {
-            entityManager.refresh(object);
-            object.setPilihan(false);
-        });
-        list1.clear();
-        list1.addAll(resultList);
+
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -744,9 +749,15 @@ public class formKasus extends JPanel {
         Integer kelompokUmur = pasien.getKelompokUmur();
         
         List<Kasus> resultList = query.getResultList();
+        
+        //index
         resultList.removeIf( a -> !a.isRevisi());
         resultList.removeIf( a -> a.getRekamMedis().getPasienIdPasien().getKelompokUmur() != kelompokUmur);
-        list5.addAll(knn(p, resultList));
+        System.out.println("resultList = " + resultList);
+        
+        //method
+//        list5.addAll(sorensonCoefficient(p, resultList));
+        list5.addAll(cbrMethod.retrieveCosineSimilarity(list, p));
         list5.remove(p);
         
         formDiagnosa.setTitle("Kasus Baru untuk -> ID :"
@@ -793,8 +804,8 @@ public class formKasus extends JPanel {
                 System.out.println("kasus = " + kasusLama);
                 double y = m11;
                 y = y * 2d;
-                double x = m11 + m10 + m01; 
-                x = x * 2d;
+                double x = y + m10 + m01; 
+//                x = x * 2d;
                 double temp = y / x;
                 System.out.println("temp = " + temp);
                 kasusLama.setSimiliarity(temp);
@@ -803,28 +814,22 @@ public class formKasus extends JPanel {
         }
     public List<Kasus> knn(Kasus Baru, List<Kasus> lama)
         {
+            System.out.println("Baru = " + Baru.getGejalaList());
             for (Kasus kasusLama : lama) {
-                List<Long> gejalaList = Baru.getGejalaList();
-                                
+                List<Long> gejalaList     = Baru.getGejalaList();
+                Set<Long> gejalaListLama = new HashSet<>(kasusLama.getGejalaList());
+//                System.out.println("1 gejalaListLama = " + gejalaListLama);
+                gejalaListLama.addAll(gejalaList);
+//                System.out.println("2 gejalaListLama = " + gejalaListLama);
                 double sim = 0d;
-                double totalLama = 0d;
-                                
+                double totalLama = 0d;                                
                 sim = gejalaList.stream().filter(
                         (l) -> (kasusLama.getGejalaList().contains(l))).map((l) -> entityManager.find(Gejala.class, l)).map((find) -> find.getValue()).reduce(sim, (accumulator, _item) -> accumulator + _item);                
-                totalLama = gejalaList.stream().map(
+                totalLama = gejalaListLama.stream().map(
                         (x) -> entityManager.find(Gejala.class, x)).map((find) -> find.getValue()).reduce(totalLama, (accumulator, _item) -> accumulator + _item);
                 sim = sim / totalLama;
-                BigDecimal t = new BigDecimal(sim);
-                BigDecimal t1 = BigDecimal.ONE;
-                
-                if (t.equals(t1)) {
-                    double bSize = Baru.getGejalaList().size();
-                    System.out.println("bSize = " + bSize);
-                    double lSize = kasusLama.getGejalaList().size();
-                    System.out.println("lSize = " + lSize);
-                    sim = bSize / lSize;
-                    System.out.println("sim = " + sim);
-                }                kasusLama.setSimiliarity(sim);
+                kasusLama.setSimiliarity(sim);
+                System.out.println("sim = " + sim);
             }
             return lama;
         }
@@ -884,6 +889,25 @@ public class formKasus extends JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
 
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+        String text = "%"+jTextField1.getText()+"%";        
+        List<Kasus> resultList = entityManager.createQuery("SELECT k FROM Kasus k WHERE k.rekamMedis.pasienIdPasien.nama LIKE :nama", Kasus.class)
+                .setParameter("nama", text)
+                .getResultList();
+        list.clear();
+        list.addAll(resultList);
+    }//GEN-LAST:event_jButton15ActionPerformed
+
+    private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        List<Gejala> resultList = query1.getResultList();
+        resultList.forEach((Gejala object) -> {
+            entityManager.refresh(object);
+            object.setPilihan(false);
+        });
+        list1.clear();
+        list1.addAll(resultList);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton16ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
@@ -895,6 +919,8 @@ public class formKasus extends JPanel {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -908,7 +934,6 @@ public class formKasus extends JPanel {
     private javax.swing.JDialog jDialog2;
     private javax.swing.JDialog jDialog3;
     private javax.swing.JDialog jDialogPenyakit;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -929,6 +954,7 @@ public class formKasus extends JPanel {
     private javax.swing.JTable jTable4;
     private javax.swing.JTable jTable5;
     private javax.swing.JTable jTable6;
+    private javax.swing.JTextField jTextField1;
     private java.util.List<mastercbr.table.Kasus> list;
     private java.util.List<mastercbr.table.Gejala> list1;
     private java.util.List<mastercbr.table.Gejala> list2;

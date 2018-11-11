@@ -14,6 +14,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -42,7 +43,7 @@ public class Kasus implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_KASUS", nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="kasus")     
     private Long idKasus;
     @OneToOne(cascade = {CascadeType.ALL})
     private RekamMedis rekamMedis;
@@ -187,7 +188,7 @@ public class Kasus implements Serializable {
 
     @Override
     public String toString() {
-        return "K[ =" + idKasus + " ]";
+        return "K[=" + idKasus + "]" + "["+ getPenyakitIdPenyakit()+"]";
     }
 
     public Penyakit getPenyakitIdPenyakit() {

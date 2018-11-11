@@ -42,9 +42,11 @@ public class loginFrame extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(300, 300));
         getContentPane().setLayout(new java.awt.GridLayout(2, 0));
 
+        jTextField1.setText("ADMIN");
         jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder("USERNAME"));
         getContentPane().add(jTextField1);
 
+        jPasswordField1.setText("ADMIN");
         jPasswordField1.setBorder(javax.swing.BorderFactory.createTitledBorder("PASSWORD"));
         getContentPane().add(jPasswordField1);
 

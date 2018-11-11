@@ -11,9 +11,11 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
@@ -85,6 +87,8 @@ public class formKonsultasiPasien extends JPanel {
         jButton4 = new javax.swing.JButton();
         jDialog3 = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
+        jButton10 = new javax.swing.JButton();
+        jTextField11 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jComboBox4 = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
@@ -126,6 +130,8 @@ public class formKonsultasiPasien extends JPanel {
         deleteButton = new javax.swing.JButton();
         saveButton = new javax.swing.JButton();
         refreshButton = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jTextField4 = new javax.swing.JTextField();
         masterScrollPane = new javax.swing.JScrollPane();
         masterTable = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
@@ -235,6 +241,13 @@ public class formKonsultasiPasien extends JPanel {
 
         jPanel3.setLayout(new java.awt.GridLayout(0, 2));
 
+        jButton10.setText("CARI");
+        jButton10.addActionListener(formListener);
+        jPanel3.add(jButton10);
+
+        jTextField11.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jPanel3.add(jTextField11);
+
         jLabel10.setText("PASIEN");
         jPanel3.add(jLabel10);
 
@@ -323,17 +336,13 @@ public class formKonsultasiPasien extends JPanel {
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
-        columnBinding.setColumnName("Bobot");
-        columnBinding.setColumnClass(Double.class);
-        columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pilihan}"));
+        columnBinding.setColumnName("Pilihan");
+        columnBinding.setColumnClass(Boolean.class);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${keterangan}"));
         columnBinding.setColumnName("Keterangan");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${pilihan}"));
-        columnBinding.setColumnName("Pilihan");
-        columnBinding.setColumnClass(Boolean.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane1.setViewportView(jTable1);
@@ -377,16 +386,12 @@ public class formKonsultasiPasien extends JPanel {
 
         jTableBinding = org.jdesktop.swingbinding.SwingBindings.createJTableBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, list4, jTable2);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${info}"));
-        columnBinding.setColumnName("Id Gejala");
+        columnBinding.setColumnName("Info");
         columnBinding.setColumnClass(String.class);
         columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${namaGejala}"));
         columnBinding.setColumnName("Nama Gejala");
         columnBinding.setColumnClass(String.class);
-        columnBinding.setEditable(false);
-        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${value}"));
-        columnBinding.setColumnName("Bobot");
-        columnBinding.setColumnClass(Double.class);
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
@@ -408,6 +413,10 @@ public class formKonsultasiPasien extends JPanel {
         columnBinding.setColumnName("Similiarity");
         columnBinding.setColumnClass(Double.class);
         columnBinding.setEditable(false);
+        columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${gejalaList}"));
+        columnBinding.setColumnName("Gejala List");
+        columnBinding.setColumnClass(java.util.List.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${penyakitIdPenyakit.namaPenyakit}"));
         columnBinding.setColumnName("Penyakit Id Penyakit");
         columnBinding.setColumnClass(String.class);
@@ -415,6 +424,7 @@ public class formKonsultasiPasien extends JPanel {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${penyakitIdPenyakit.solusi}"));
         columnBinding.setColumnName("Solusi");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
         jScrollPane3.setViewportView(jTable3);
@@ -455,6 +465,13 @@ public class formKonsultasiPasien extends JPanel {
         refreshButton.setText("REFRESH");
         refreshButton.addActionListener(formListener);
         jPanel1.add(refreshButton);
+
+        jButton9.setText("CARI");
+        jButton9.addActionListener(formListener);
+        jPanel1.add(jButton9);
+
+        jTextField4.setPreferredSize(new java.awt.Dimension(200, 30));
+        jPanel1.add(jTextField4);
 
         add(jPanel1);
 
@@ -583,6 +600,9 @@ public class formKonsultasiPasien extends JPanel {
             else if (evt.getSource() == refreshButton) {
                 formKonsultasiPasien.this.refreshButtonActionPerformed(evt);
             }
+            else if (evt.getSource() == jButton9) {
+                formKonsultasiPasien.this.jButton9ActionPerformed(evt);
+            }
             else if (evt.getSource() == newDetailButton) {
                 formKonsultasiPasien.this.newDetailButtonActionPerformed(evt);
             }
@@ -600,6 +620,9 @@ public class formKonsultasiPasien extends JPanel {
             }
             else if (evt.getSource() == jButton4) {
                 formKonsultasiPasien.this.jButton4ActionPerformed(evt);
+            }
+            else if (evt.getSource() == jButton10) {
+                formKonsultasiPasien.this.jButton10ActionPerformed(evt);
             }
             else if (evt.getSource() == jButton5) {
                 formKonsultasiPasien.this.jButton5ActionPerformed(evt);
@@ -816,7 +839,7 @@ public class formKonsultasiPasien extends JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
-
+        //proses button
 //        saveButtonActionPerformed(evt);
         jDialog3.hide();
         list1.removeIf(a->!a.isPilihan());
@@ -845,12 +868,17 @@ public class formKonsultasiPasien extends JPanel {
         list5.clear();
 
 //        entityManager.createQuery("SELECT k FROM Kasus k where k.revisi = TRUE");
+
+        //Index Kelompok umur
         List<Kasus> resultList = query2.getResultList();
         Pasien pasien = (Pasien) jComboBox4.getSelectedItem();
         Integer kelompokUmur = pasien.getKelompokUmur();
-        resultList.removeIf( a -> a.getRekamMedis().getPasienIdPasien().getKelompokUmur() != kelompokUmur);
+        resultList.removeIf( a 
+                -> a.getRekamMedis().getPasienIdPasien().getKelompokUmur() != kelompokUmur);
 
-        list5.addAll(knn(p, resultList));
+//        list5.addAll(knn(p, resultList));
+        //metode
+        list5.addAll(sorensonCoefficient(p, resultList));
 
         TableRowSorter<TableModel> sorter = new TableRowSorter<>(jTable3.getModel());
         jTable3.setRowSorter(sorter);
@@ -861,31 +889,72 @@ public class formKonsultasiPasien extends JPanel {
 
         sorter.setSortKeys(sortKeys);
         sorter.sort();
-        
+        jButton7.setEnabled(true);        
         try {
-            jTable3.setRowSelectionInterval(0, 0);
-            Kasus get = list5.get(jTable3.convertRowIndexToModel(0));
-            System.out.println("get = " + get);
-            if (get.getSimiliarity() > 0.74d) {
-                
-            String pesan = "HASIL DIAGNOSA"
-                    + "\nKasus = "
-                    + get.getInfo()
-                    + "\nSimiliarity = "
-                    + get.getSimiliarity()
-                    + "\nPenyakit = "
-                    + get.getPenyakitIdPenyakit().getNamaPenyakit()
-                    + "\nSaran = "
-                    + get.getPenyakitIdPenyakit().getSolusi()
-                    + "";
-            JOptionPane.showMessageDialog(this, pesan);
+//            jTable3.setRowSelectionInterval(0, 0);
+            Kasus get = list5.get(0);            
+            Double maxSimiliarity = 0d;
+            for (Kasus kasus : list5) {
+                if (kasus.getSimiliarity() > maxSimiliarity) {
+                    maxSimiliarity = kasus.getSimiliarity();
+                    get = kasus;
+                }
             }
-//            jTable3.getsel
+            System.out.println("maxSimiliarity = " + maxSimiliarity);
+            String pesan = "Kosong";
+            if (maxSimiliarity == 1d) {
+                System.out.println("A");
+                pesan = "HASIL DIAGNOSA"
+                        + "\nKasus = "
+                        + get.getInfo()
+                        + "\nSimiliarity = "
+                        + get.getSimiliarity()
+                        + "\nPenyakit = "
+                        + get.getPenyakitIdPenyakit().getNamaPenyakit()
+                        + "\nSaran = "
+                        + get.getPenyakitIdPenyakit().getSolusi()
+                        + "\nTips = "
+                        + "KASUS TIDAK PERLU DISIMPAN";
+                jButton7.setEnabled(false);
+                JOptionPane.showMessageDialog(null, pesan);                
+            }
+            else if (get.getSimiliarity() > 0.6d) {                
+                System.out.println("B");
+                pesan = "HASIL DIAGNOSA"
+                        + "\nKasus = "
+                        + get.getInfo()
+                        + "\nSimiliarity = "
+                        + get.getSimiliarity()
+                        + "\nPenyakit = "
+                        + get.getPenyakitIdPenyakit().getNamaPenyakit()
+                        + "\nSaran = "
+                        + get.getPenyakitIdPenyakit().getSolusi()
+                        + "";
+                jButton7.setEnabled(true);
+                JOptionPane.showMessageDialog(null, pesan);
+            }
+            else if (get.getSimiliarity() < 0.6d) { 
+                System.out.println("C");
+                pesan = "HASIL DIAGNOSA"
+                        + "\nKasus = "
+                        + get.getInfo()
+                        + "\nSimiliarity = "
+                        + get.getSimiliarity()
+                        + "\nPenyakit = "
+                        + get.getPenyakitIdPenyakit().getNamaPenyakit()
+                        + "\nSaran = "
+                        + get.getPenyakitIdPenyakit().getSolusi()
+                        + "\nTips = "
+                        + "KASUS TIDAK PERLU DISIMPAN";
+                jButton7.setEnabled(false);
+                JOptionPane.showMessageDialog(null, pesan);     
+            }
+                System.out.println("pesan = " + pesan);
         } catch (Exception e) {
+            e.printStackTrace();
         }
 
         list5.remove(p);
-//        jTable3.setse
         jDialog4.show();
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -928,6 +997,25 @@ public class formKonsultasiPasien extends JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        // TODO add your handling code here:
+        String text = "%"+jTextField4.getText()+"%";        
+        List<Pasien> resultList = entityManager.createQuery("SELECT p FROM Pasien p WHERE p.nama LIKE :nama", Pasien.class)
+                .setParameter("nama", text)
+                .getResultList();
+        list.clear();
+        list.addAll(resultList);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        String text = "%"+jTextField11.getText()+"%";        
+        List<Pasien> resultList = entityManager.createQuery("SELECT p FROM Pasien p WHERE p.nama LIKE :nama", Pasien.class)
+                .setParameter("nama", text)
+                .getResultList();
+        list.clear();
+        list.addAll(resultList);        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton deleteButton;
@@ -936,6 +1024,7 @@ public class formKonsultasiPasien extends JPanel {
     private javax.swing.JTable detailTable;
     private javax.persistence.EntityManager entityManager;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -943,6 +1032,7 @@ public class formKonsultasiPasien extends JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -986,8 +1076,10 @@ public class formKonsultasiPasien extends JPanel {
     private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
@@ -1050,31 +1142,26 @@ public class formKonsultasiPasien extends JPanel {
         {
             for (Kasus kasusLama : lama) {
                 List<Long> gejalaList = Baru.getGejalaList();
-                                
-                double sim = 0d;
-                double totalLama = 0d;
-                                
-                sim = gejalaList.stream().filter(
-                        (l) -> (kasusLama.getGejalaList().contains(l))).map((l) -> entityManager.find(Gejala.class, l)).map((find) -> find.getValue()).reduce(sim, (accumulator, _item) -> accumulator + _item);                
-                totalLama = gejalaList.stream().map(
-                        (x) -> entityManager.find(Gejala.class, x)).map((find) -> find.getValue()).reduce(totalLama, (accumulator, _item) -> accumulator + _item);
-                sim = sim / totalLama;
-                BigDecimal t = new BigDecimal(sim);
-                BigDecimal t1 = BigDecimal.ONE;
-                
-                if (t.equals(t1)) {
-                    double bSize = Baru.getGejalaList().size();
-                    System.out.println("bSize = " + bSize);
-                    double lSize = kasusLama.getGejalaList().size();
-                    System.out.println("lSize = " + lSize);
-                    sim = bSize / lSize;
-                    System.out.println("sim = " + sim);
-                }
-
-                kasusLama.setSimiliarity(sim);
+                Set<Long> gejalaListLama = new HashSet<>(kasusLama.getGejalaList());
+                gejalaListLama.addAll(gejalaList);                                
+                double s = 0d;
+                double w = 0d;                                
+                s = gejalaList.stream().filter(
+                        (l) -> (kasusLama.getGejalaList().contains(l))).map((l) 
+                                -> entityManager.find(Gejala.class, l)).map((find) 
+                                        -> find.getValue()).reduce(s, (accumulator, _item) 
+                                                -> accumulator + _item);                
+                w = gejalaListLama.stream().map(
+                        (x) -> entityManager.find(Gejala.class, x)).map((find) 
+                                -> find.getValue()).reduce(w, (accumulator, _item) 
+                                        -> accumulator + _item);
+                s = s / w;
+                kasusLama.setSimiliarity(s);
             }
             return lama;
         }
+    
+    
     public List<Kasus> sorensonCoefficient(Kasus Baru, List<Kasus> lama)
         {
             EntityManager entityManager = java.beans.Beans.isDesignTime() ? null : javax.persistence.Persistence.createEntityManagerFactory("MasterCBRPU").createEntityManager();        
@@ -1108,8 +1195,8 @@ public class formKonsultasiPasien extends JPanel {
 //                System.out.println("kasus = " + kasusLama);
                 double y = m11;
                 y = y * 2d;
-                double x = m11 + m10 + m01; 
-                x = x * 2d;
+                double x = y + m10 + m01; 
+//                x = x * 2d;
                 double temp = y / x;
 //                System.out.println("temp = " + temp);
                 kasusLama.setSimiliarity(temp);

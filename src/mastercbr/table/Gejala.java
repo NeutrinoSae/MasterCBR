@@ -12,9 +12,11 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -41,7 +43,7 @@ public class Gejala implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "ID_GEJALA", nullable = false)
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="gejala")     
     private Long idGejala;
     @Column(name = "NAMA_GEJALA", length = 255)
     private String namaGejala;

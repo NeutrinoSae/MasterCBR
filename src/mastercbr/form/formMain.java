@@ -20,11 +20,12 @@ public class formMain extends javax.swing.JFrame {
      */
     public formMain() {
         initComponents();
+//        ImageIcon home = new javax.swing.ImageIcon(getClass().getResource("/mastercbr/main.jpg"));
         ImageIcon home = new javax.swing.ImageIcon(getClass().getResource("/mastercbr/main.jpeg"));
         Image image = home.getImage(); // transform it 
         Image newimg = image.getScaledInstance(this.getSize().width,600,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         ImageIcon imageIcon = new ImageIcon(newimg);
-//        jLabel1.setIcon(imageIcon);
+        jLabel1.setIcon(imageIcon);
         this.setExtendedState(6);
     }
 
@@ -35,7 +36,8 @@ public class formMain extends javax.swing.JFrame {
         this.jTabbedPane1.remove(2);
         this.jTabbedPane1.remove(2);
         this.jTabbedPane1.remove(2);
-        ImageIcon home = new javax.swing.ImageIcon(getClass().getResource("/mastercbr/main.jpeg"));
+//        ImageIcon home = new javax.swing.ImageIcon(getClass().getResource("/mastercbr/main.jpeg"));
+        ImageIcon home = new javax.swing.ImageIcon(getClass().getResource("/mastercbr/main.jpg"));
         Image image = home.getImage(); // transform it 
         Image newimg = image.getScaledInstance(this.getSize().width,600,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         ImageIcon imageIcon = new ImageIcon(newimg);
